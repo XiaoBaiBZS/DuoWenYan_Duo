@@ -1,0 +1,26 @@
+appver="22.7.0 何处相思明月楼"
+template="bottom"
+user_permission={
+  [1]	= "GET_PACKAGE_SIZE" ;
+  [2]	= "ACCESS_FINE_LOCATION" ;
+  [3]	= "ACCESS_NETWORK_STATE" ;
+  [4]	= "ACCESS_WIFI_STATE" ;
+  [5]	= "INTERNET" ;
+  [6]	= "WRITE_EXTERNAL_STORAGE" ;
+  [7]	= "CAMERA" ;
+  [8]	= "CHANGE_NETWORK_STATE" ;
+  [9]	= "CHANGE_WIFI_STATE" ;
+  [10]	= "DOWNLOAD_WITHOUT_NOTIFICATION" ;
+  [11]	= "FOREGROUND_SERVICE" ;
+  [12]	= "KILL_BACKGROUND_PROCESSES" ;
+  [13]	= "READ_EXTERNAL_STORAGE" ;
+  [14]	= "READ_PHONE_STATE" ;
+  [15]	= "REQUEST_INSTALL_PACKAGES" ;
+  [16]	= "SYSTEM_ALERT_WINDOW" ;
+  [17]	= "VIBRATE" ;
+  [18]	= "WAKE_LOCK" ;
+  [19]	= "WRITE_EXTERNAL_STORAGE" ;
+  } ;
+appcode="920220509"
+appname="多文言Duo"
+packagename="com.MyFusApp.dwy"
