@@ -1,0 +1,419 @@
+{
+  ["events"]	= {
+      ["程序启动"]	= "--程序启动时会执行的事件\
+\
+--titleTvw.getPaint().setFakeBoldText(true)\
+--[[function 加载网页(链a接)\
+  写入文件(\"/data/data/\"..activity.getPackageName()..\"/链接保存.xml\",\"打开\")\
+  写入文件(\"/data/data/\"..activity.getPackageName()..\"/链接传递.xml\",链a接)\
+  进入子页面(\"3\")\
+end]]\
+require \"import\"\
+            import \"android.app.*\"\
+            import \"android.os.*\"\
+            import \"android.widget.*\"\
+            import \"android.view.*\"\
+            --import \"layout\"\
+            --activity.setTitle('AndroLua+')\
+            --activity.setTheme(android.R.style.Theme_Holo_Light)\
+            layout={\
+              LinearLayout;\
+              layout_height=\"fill\";\
+              orientation=\"vertical\";\
+              layout_width=\"fill\";\
+              {\
+                LinearLayout;\
+                layout_width=\"fill\";\
+                orientation=\"horizontal\";\
+                {\
+                  TextView;\
+                  text=\"加载中...\";\
+                  layout_height=\"0%h\";\
+                  gravity=\"center|left\";\
+                  id=\"path\";\
+                  layout_width=\"94%w\";\
+           \
+                };\
+                {\
+                  ProgressBar;\
+                  layout_height=\"4%h\";\
+                  id=\"jz\";\
+                  layout_width=\"6%w\";\
+                };\
+              };\
+                 {\
+                LinearLayout;\
+                layout_width=\"fill\";\
+                orientation=\"horizontal\";\
+              {\
+                ListView;\
+                layout_height=\"fill\";\
+                id=\"list\";\
+                --fastScrollEnabled=true;\
+                layout_width=\"fill\";\
+                        };\
+                 --[[ {\
+                ListView;\
+                layout_height=\"fill\";\
+                id=\"list2\";\
+              --  fastScrollEnabled=true;\
+                layout_width=\"fill\";\
+                layout_weight=\"1.0\",\
+              };]]\
+                 };\
+            };\
+\
+            webView.addView(loadlayout(layout))\
+            item={\
+              LinearLayout;\
+              layout_width=\"fill\";\
+              orientation=\"vertical\";\
+              layout_width=\"100%w\";\
+              {\
+                LinearLayout;\
+                layout_width=\"fill\";\
+                layout_height=\"wrap\";\
+                orientation=\"vertical\";\
+                {\
+                  LinearLayout;\
+                  layout_width=\"fill\";\
+                  layout_height=\"wrap\";\
+                  -- layout_height=\"10%h\";\
+                  orientation=\"horizontal\";\
+                  {\
+                    ImageView;\
+                    layout_width=\"4%h\";\
+                    layout_gravity=\"center\";\
+                    id=\"icon\";\
+                                     layout_marginLeft=\"4%w\";\
+                    layout_height=\"4%h\";\
+                  };\
+                  {\
+                    TextView;\
+                    text=\"name\";\
+                    id=\"name\";\
+                    layout_height=\"wrap\";\
+                    textColor=\"#ff000000\";\
+                    --  layout_width=\"80%w\";\
+                    layout_marginRight=\"5dp\";\
+                    layout_gravity=\"center\";\
+                  };\
+                };\
+                {\
+                  LinearLayout;\
+                  layout_width=\"fill\";\
+                  -- layout_height=\"10%h\";\
+                  orientation=\"horizontal\";\
+                  layout_height=\"4%h\";\
+                  {\
+                    TextView;\
+                 --   layout_width=\"80%w\";\
+                    layout_gravity=\"left\";\
+                    textSize=\"10dp\";\
+                    id=\"xx\";\
+                    text=\"1969 96 97\";\
+                    layout_marginLeft=\"6%w\";\
+\
+                  };\
+                };\
+              };\
+            }\
+            import \"com.androlua.LuaUtil\"\
+            function getMD5(path)--获取md5值\
+              return tostring(LuaUtil.getFileMD5(tostring(path)))\
+            end\
+\
+            function GetFilelastTime(path)--文件夹最后更新时间\
+              f = File(path); \
+              cal = Calendar.getInstance();\
+              time = f.lastModified()\
+              cal.setTimeInMillis(time); \
+              return cal.getTime().toLocaleString()\
+            end\
+\
+\
+            function GetFileSize(path)--文件大小\
+              import \"java.io.File\"\
+              import \"android.text.format.Formatter\"\
+              size=File(tostring(path)).length()\
+              Sizes=Formatter.formatFileSize(activity, size)\
+              return Sizes\
+            end\
+\
+            adp=LuaAdapter(activity,item)\
+\
+\
+            function show(f)\
+              jz.setVisibility(View.GONE)\
+              dir=f \
+              if tostring(dir)~=\"/\" then\
+                titleTvw.setText(tostring(dir)..\"/\")\
+              else\
+                titleTvw.setText(tostring(dir)..\"\")\
+              end\
+              adp.clear()\
+              ls=luajava.astable(f.listFiles() or String{}) --全局文件列表变量\
+              table.sort(ls,function(a,b)\
+                return (a.isDirectory()~=b.isDirectory() and a.isDirectory()) or ((a.isDirectory()==b.isDirectory()) and a.Name<b.Name)\
+              end) --根据是否文件夹与字母排序\
+\
+          adp.add{icon=\"icon/dir.png\",name=\"../\",xx=\"\"}\
+              for n=1,#ls do\
+                if ls[n].isDirectory() then\
+                  adp.add{icon=\"icon/dir.png\",name=ls[n].Name,xx=GetFilelastTime(tostring(ls[n]))}\
+                end\
+              end\
+              for n=1,#ls do\
+                if ls[n].isDirectory() then\
+                else\
+                  adp.add{icon=\"icon/file.png\",name=ls[n].Name,xx=GetFilelastTime(tostring(ls[n]))..\"  \"..GetFileSize(tostring(ls[n]))}\
+                end\
+              end\
+         \
+            end\
+\
+\
+\
+--            list2.Adapter=adp\
+            list.Adapter=adp\
+            import \"java.io.File\"\
+\
+            --调用其它程序打开文件\
+            function OpenFile(path)\
+              import \"android.webkit.MimeTypeMap\"\
+              import \"android.content.Intent\"\
+              import \"android.net.Uri\"\
+              import \"java.io.File\"\
+              FileName=tostring(File(path).Name)\
+              ExtensionName=FileName:match(\"%.(.+)\")\
+              Mime=MimeTypeMap.getSingleton().getMimeTypeFromExtension(ExtensionName)\
+              if Mime then \
+                intent = Intent(); \
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); \
+                intent.setAction(Intent.ACTION_VIEW); \
+                intent.setDataAndType(Uri.fromFile(File(path)), Mime); \
+                activity.startActivity(intent);\
+              else\
+                print(\"找不到可以用来打开此文件的程序\")\
+              end\
+            end\
+\
+            function 加载(path)\
+              jz.setVisibility(View.VISIBLE)\
+              path=path\
+              thread(function()\
+                require \"import\"\
+                import \"java.io.File\"\
+                Thread.sleep(100)\
+                call(\"show\",File(\"/storage/emulated/0/Download/多文言Duo下载/我的教材\"))\
+              end)\
+            end\
+\
+\
+            加载(\"/storage/emulated/0/\")\
+            list.onItemClick=function(l,v,p,i)\
+              if v.Tag.name.Text==\"../\" then --如果是../显示父文件夹\
+                show(dir.ParentFile or dir)\
+                --print(ls[p])\
+              elseif ls[p].isDirectory() then --如果是文件夹，显示文件夹内容\
+                show(ls[p])\
+                --print(path)\
+                --a=ls[p].getAbsolutePath()\
+                --a=getAbsolutePath()\
+              elseif not ls[p].isDirectory() then\
+                --print(ls[p]) \
+                --文件选择结果=(Is[p]).getAbsolutePath()\
+                --print(文件选择结果)\
+                文件选择结果 = tostring(ls[p])\
+                                   OpenFile(文件选择结果)\
+                                --dl.dismiss()\
+                --print(a)\
+              end\
+            end \
+       --[[   list2.onItemClick=function(l,v,p,i)\
+              if v.Tag.name.Text==\"../\" then --如果是../显示父文件夹\
+                show(dir.ParentFile or dir)\
+                --print(ls[p])\
+              elseif ls[p].isDirectory() then --如果是文件夹，显示文件夹内容\
+                show(ls[p])\
+                --print(path)\
+                --a=ls[p].getAbsolutePath()\
+                --a=getAbsolutePath()\
+              elseif not ls[p].isDirectory() then\
+                --print(ls[p]) \
+                --文件选择结果=(Is[p]).getAbsolutePath()\
+                --print(文件选择结果)\
+                文件选择结果 = tostring(ls[p])\
+                                   OpenFile(文件选择结果)\
+                                --dl.dismiss()\
+                --print(a)\
+              end\
+            end \
+       ]]\
+       \
+       \
+       \
+       \
+       \
+       \
+       \
+       \
+       \
+       \
+       \
+       \
+       \
+       \
+       \
+       \
+       \
+       \
+       \
+       \
+       \
+       \
+       \
+       \
+       \
+       \
+       \
+       \
+       \
+       \
+       \
+       \
+       \
+       \
+       \
+       \
+       \
+       \
+       \
+       \
+       \
+       \
+       \
+       \
+       \
+       \
+       \
+       \
+       \
+       \
+       \
+       \
+       \
+       \
+       \
+       \
+       \
+       \
+       \
+       \
+       " ;
+      ["网页即将加载"]	= "--浏览器即将加载新的网页时执行的事件\
+\
+--接收参数\
+浏览器对象,网页链接=..." ;
+      ["网页加载完毕"]	= "--网页加载完毕后执行的事件\
+\
+--接收参数\
+浏览器对象,网页链接=..." ;
+      ["收到新标题"]	= "--浏览器加载新页面并获得新标题时执行的事件\
+\
+--接收参数\
+浏览器对象，新标题=..." ;
+      } ;
+  ["colors"]	= {
+      ["悬浮按钮图标"]	= "#ffffffff" ;
+      ["顶栏"]	= "#ffffffff" ;
+      ["悬浮按钮"]	= "#ff33a7aa" ;
+      ["侧滑栏列表文字"]	= "#ff333333" ;
+      ["侧滑栏背景"]	= "#ffffffff" ;
+      ["导航栏"]	= "#ff2c2e43" ;
+      ["搜索栏部件"]	= "#ff888888" ;
+      ["侧滑栏列表图标"]	= "#ff757575" ;
+      ["搜索栏部件触摸"]	= "#44000000" ;
+      ["顶栏部件触摸"]	= "#22ffffff" ;
+      ["进度条"]	= "#00000000" ;
+      ["搜索栏背景"]	= "#ffffffff" ;
+      ["搜索栏提示文字"]	= "#80000000" ;
+      ["顶栏部件"]	= "#ff000000" ;
+      } ;
+  ["web"]	= {
+      ["浏览器用户标识"]	= "默认" ;
+      ["网页沉浸"]	= true ;
+      ["启用进度条"]	= true ;
+      ["支持打开外部应用"]	= true ;
+      ["启动网页"]	= "" ;
+      ["启用长按菜单"]	= true ;
+      } ;
+  ["fltBtn"]	= {
+      ["显示"]	= false ;
+      ["图标"]	= "" ;
+      ["点击事件"]	= "--悬浮按钮点击时执行的事件" ;
+      } ;
+  ["switch"]	= {
+      ["启用启动图"]	= false ;
+      ["显示状态栏"]	= true ;
+      ["横屏"]	= false ;
+      ["支持滑动页面"]	= false ;
+      } ;
+  ["view_attribute"]	= {
+      ["搜索栏阴影强度"]	= "2dp" ;
+      ["顶栏高度"]	= "65dp" ;
+      ["顶栏标题"]	= "我的教材" ;
+      ["顶栏阴影强度"]	= "2dp" ;
+      ["侧滑栏宽度"]	= "240dp" ;
+      ["搜索栏圆角弧度"]	= "2dp" ;
+      } ;
+  ["web_control"]	= {
+      } ;
+  ["toolbar"]	= {
+      ["menus"]	= {
+          } ;
+      ["输入栏模式"]	= true ;
+      ["icon_btns"]	= {
+          [2]	= {
+              ["icon"]	= "1618133642340_edit_9089970217883(1)" ;
+              ["onClick"]	= "退出页面()" ;
+              } ;
+          [1]	= {
+              ["icon"]	= "1638673075255" ;
+              ["onClick"]	= "--获取手机内置剩余存储空间\
+function GetSurplusSpace()\
+  fs = StatFs(Environment.getDataDirectory().getPath())\
+  return Formatter.formatFileSize(activity, (fs.getAvailableBytes()))\
+end\
+\
+--获取手机内置存储总空间\
+function GetTotalSpace()\
+  path = Environment.getExternalStorageDirectory()\
+  stat = StatFs(path.getPath())\
+  blockSize = stat.getBlockSize()\
+  totalBlocks = stat.getBlockCount()\
+  return Formatter.formatFileSize(activity, blockSize * totalBlocks)\
+end\
+qwe=\"总存储空间:\"..GetTotalSpace()..\"\\n剩余存储空间:\"..GetSurplusSpace()\
+对话框()\
+.设置标题(\"存储空间\")\
+.设置消息(qwe)\
+.设置积极按钮(\"复制\",function()\
+  复制文本(qwe)\
+  print\"复制成功\"\
+end)\
+.设置消极按钮(\"取消\")\
+.显示()" ;
+              } ;
+          } ;
+      ["搜索框提示"]	= "" ;
+      ["搜索URL"]	= "" ;
+      ["启用搜索功能"]	= false ;
+      } ;
+  ["sidebar"]	= {
+      ["items"]	= {
+          } ;
+      ["启用顶部图片"]	= false ;
+      ["启用"]	= false ;
+      } ;
+  } ;
