@@ -1,0 +1,634 @@
+{
+  ["web"]	= {
+      ["浏览器用户标识"]	= "默认" ;
+      ["启用长按菜单"]	= true ;
+      ["网页沉浸"]	= false ;
+      ["支持打开外部应用"]	= true ;
+      ["启用进度条"]	= true ;
+      ["启动网页"]	= "" ;
+      } ;
+  ["colors"]	= {
+      ["导航栏"]	= "#ff2c2e43" ;
+      ["顶栏部件触摸"]	= "#22ffffff" ;
+      ["悬浮按钮"]	= "#ff33a7aa" ;
+      ["搜索栏提示文字"]	= "#80000000" ;
+      ["搜索栏背景"]	= "#ffffffff" ;
+      ["搜索栏部件触摸"]	= "#44000000" ;
+      ["顶栏"]	= "#ff2c2e43" ;
+      ["悬浮按钮图标"]	= "#ffffffff" ;
+      ["侧滑栏列表图标"]	= "#ff757575" ;
+      ["顶栏部件"]	= "#ffffffff" ;
+      ["侧滑栏列表文字"]	= "#ff333333" ;
+      ["进度条"]	= "#00000000" ;
+      ["搜索栏部件"]	= "#ff888888" ;
+      ["侧滑栏背景"]	= "#ffffffff" ;
+      } ;
+  ["web_control"]	= {
+      } ;
+  ["view_attribute"]	= {
+      ["侧滑栏宽度"]	= "240dp" ;
+      ["顶栏阴影强度"]	= "2dp" ;
+      ["搜索栏阴影强度"]	= "2dp" ;
+      ["顶栏标题"]	= "Title" ;
+      ["顶栏高度"]	= "56dp" ;
+      ["搜索栏圆角弧度"]	= "2dp" ;
+      } ;
+  ["toolbar"]	= {
+      ["icon_btns"]	= {
+          } ;
+      ["输入栏模式"]	= true ;
+      ["搜索URL"]	= "" ;
+      ["menus"]	= {
+          [1]	= {
+              ["name"]	= "退出" ;
+              ["onClick"]	= "退出页面()" ;
+              } ;
+          } ;
+      ["搜索框提示"]	= "" ;
+      ["启用搜索功能"]	= false ;
+      } ;
+  ["fltBtn"]	= {
+      ["图标"]	= "" ;
+      ["显示"]	= true ;
+      ["点击事件"]	= "urla=\"https://share.weiyun.com/qX5fLLuN\"\
+Http.get(urla,nil,nil,nil,function(code,content)\
+  --微云过滤\
+  local content=content:match([[<article(.-)</article>]])\
+  local content=content:gsub(\"<p>\",\"\\n\")\
+  local content=content:gsub(\"</p>\",\"\") \
+  local 布局=content:match(\"【布局】(.-)【布局】\")\
+  \
+  \
+  local status,error=pcall(loadstring(布局))\
+  \
+  \
+  end)" ;
+      } ;
+  ["switch"]	= {
+      ["启用启动图"]	= false ;
+      ["支持滑动页面"]	= true ;
+      ["显示状态栏"]	= true ;
+      ["横屏"]	= false ;
+      } ;
+  ["events"]	= {
+      ["网页即将加载"]	= "--浏览器即将加载新的网页时执行的事件\
+\
+--接收参数\
+浏览器对象,网页链接=..." ;
+      ["收到新标题"]	= "--浏览器加载新页面并获得新标题时执行的事件\
+\
+--接收参数\
+浏览器对象，新标题=..." ;
+      ["网页加载完毕"]	= "--网页加载完毕后执行的事件\
+\
+--接收参数\
+浏览器对象,网页链接=..." ;
+      ["程序启动"]	= "\
+\
+\
+\
+require\"import\"\
+import \"android.app.*\"\
+import \"android.os.*\"\
+import \"android.widget.*\"\
+import \"android.view.*\"\
+\
+require \"import\"\
+import \"android.app.*\"\
+import \"android.os.*\"\
+import \"android.widget.*\"\
+import \"android.view.*\"\
+import \"android.content.Context\"\
+import \"android.content.Intent\"\
+import \"android.app.PendingIntent\"\
+import \"android.app.Notification\"\
+import \"android.content.Intent\"\
+import \"android.net.Uri\"\
+import \"android.provider.Settings\"\
+local height=activity.getResources().getDimensionPixelSize(activity.getResources().getIdentifier(\"status_bar_height\",\"dimen\",\"android\"));\
+\
+\
+\
+布局=\
+--主框架\
+\
+{\
+  LinearLayout;--线性布局\
+  layout_width='match_parent';--布局宽度\
+  layout_height='match_parent';--布局高度\
+  background='#FFFFFFFF';--布局背景颜色(或者图片路径)\
+  id='ars';\
+  {\
+    LinearLayout,--线性布局\
+    orientation='vertical',--方向\
+    layout_width='fill',--宽度\
+    layout_height='wrap',--高度\
+    background='#f1f3f5',--背景颜色或图片路径\
+    {\
+      CardView;--卡片控件\
+      layout_margin='8dp';--边距\
+      layout_gravity='center';--重力\
+      --左:left 右:right 中:center 顶:top 底:bottom\
+      elevation='0dp';--阴影\
+      layout_width='fill';--宽度\
+      layout_height=height;--高度\
+      CardBackgroundColor='#f1f3f5';--颜色\
+      radius='';--圆角\
+    };\
+    {\
+      CardView;--卡片控件\
+      layout_margin='15dp';--边距\
+      layout_gravity='center|top';--重力\
+      --左:left 右:right 中:center 顶:top 底:bottom\
+      elevation='0dp';--阴影\
+      layout_width='fill';--宽度\
+      layout_height='5%h';--高度\
+      CardBackgroundColor='#f1f3f5';--颜色;\
+      radius='8dp';--圆角\
+      {\
+        TextView;--文本控件\
+        layout_width='fill';--文本宽度\
+        layout_height='fill';--文本高度\
+        gravity='left|center';--重力属性\
+        --左:left 右:right 中:center 顶:top 底:bottom\
+        textColor='#000000';--文字颜色\
+        text='账户注册';--显示的文字\
+        textSize='20dp';--文字大小\
+      };\
+      {\
+        ImageView;--图片控件\
+        src='gb.png';--图片路径\
+        layout_width='35dp';--图片宽度\
+        layout_height='35dp';--图片高度\
+        scaleType='fitXY';--图片显示类型\
+        layout_gravity='center|right';--卡片重力\
+        --左:left 右:right 中:center 顶:top 底:bottom\
+        id='关闭';\
+\
+      };\
+\
+\
+    };\
+\
+\
+    --纵向滚动框架\
+    {\
+      ScrollView,\
+      layout_width=\"match_parent\";\
+      layout_height=\"match_parent\";\
+      VerticalScrollBarEnabled=false;\
+\
+      {\
+        LinearLayout;--线性布局\
+        Orientation='horizontal';--布局方向\
+        layout_width='match_parent';--布局宽度\
+        layout_height='match_parent';--布局高度\
+        background='#f1f3f5';--布局背景颜色\
+        id='ars';\
+\
+\
+        -- -----------左边竖布局开始--------------\
+        --左线程框架\
+\
+        {\
+          LinearLayout;\
+          orientation=\"vertical\";\
+          layout_width=\"fill\";\
+          layout_height=\"match_parent\";\
+          layout_marginLeft=\"\";\
+          {\
+            CardView;--卡片控件\
+            layout_margin='18dp';--边距\
+            layout_gravity='center';--重力\
+            --左:left 右:right 中:center 顶:top 底:bottom\
+            elevation='0dp';--阴影\
+            layout_width='fill';--宽度\
+            layout_height='wrap';--高度\
+            CardBackgroundColor='#ffffffff';--颜色\
+            radius='18dp';--圆角\
+            {\
+              TextView;--文本控件\
+              layout_width='fill';--文本宽度\
+              layout_height='fill';--文本高度\
+              gravity='center|left';--重力属性\
+              textColor='#ff000000';--文字颜色\
+              layout_margin='18dp';--边距\
+              text='亲爱的内测用户：\\n \\n   您好，感谢您参与测试注册功能，本页面提供两种注册方案，其一为自动注册，要求为账户填QQ号区分，密码自定义小于8字符；其二为人工辅助您注册，需要审核，您只需点按下按钮填写表单。本页面如果出现加载失败等问题，请邮箱或QQ联系1298589907@qq.com，或选择人工为您注册。\\n\\n    您可能遇到注册按钮点击无反应的问题，请点击尝试修复按钮。\\n\\n--多文言Duo官方运营团队';--显示的文字\
+              textSize='18dp';--文字大小\
+            };\
+          };\
+        \
+               {\
+CardView;--卡片控件\
+layout_margin='18dp';--边距\
+layout_gravity='center';--重力\
+--左:left 右:right 中:center 顶:top 底:bottom\
+elevation='0dp';--阴影\
+layout_width='fill';--宽度\
+layout_height='50dp';--高度\
+CardBackgroundColor='#F1F3F5';--颜色\
+radius='8dp';--圆角\
+\
+            {\
+              CardView;--卡片控件\
+\
+              layout_margin='8dp';--边距\
+              layout_gravity='right';--重力\
+              --左:left 右:right 中:center 顶:top 底:bottom\
+              elevation='0dp';--阴影\
+              layout_width='40%w';--宽度\
+              layout_height='35dp';--高度\
+              CardBackgroundColor=\"#FF075AF4\";--颜色\
+              radius='18dp';--圆角\
+              id='人工表单注册';\
+              {\
+                TextView;--文本控件\
+                layout_width='fill';--文本宽度\
+                layout_height='fill';--文本高度\
+                gravity='center';--重力属性\
+                textColor='#ffffffff';--文字颜色\
+                text='人工表单注册';--显示的文字\
+                textSize='15dp';--文字大小\
+                id='人工表单注册';\
+              };\
+            };\
+           \
+            {\
+              CardView;--卡片控件\
+\
+              layout_margin='8dp';--边距\
+              layout_gravity='left';--重力\
+              --左:left 右:right 中:left 顶:top 底:bottom\
+              elevation='0dp';--阴影\
+              layout_width='40%w';--宽度\
+              layout_height='35dp';--高度\
+              CardBackgroundColor=\"#FF075AF4\";--颜色\
+              radius='18dp';--圆角\
+              id='修复';\
+              {\
+                TextView;--文本控件\
+                layout_width='fill';--文本宽度\
+                layout_height='fill';--文本高度\
+                gravity='center';--重力属性\
+                textColor='#ffffffff';--文字颜色\
+                text='尝试修复HTML问题';--显示的文字\
+                textSize='14dp';--文字大小\
+                id='修复';\
+              };\
+            };\
+          };\
+          \
+          ------------\
+\
+          {\
+            CardView;--卡片控件\
+            layout_margin='18dp';--边距\
+            layout_gravity='center';--重力\
+            --左:left 右:right 中:center 顶:top 底:bottom\
+            elevation='0dp';--阴影\
+            layout_width='fill';--宽度\
+            layout_height='wrap';--高度\
+            CardBackgroundColor='#ffffffff';--颜色\
+            radius='18dp';--圆角\
+            {\
+              LuaWebView,--浏览器控件\
+              layout_width=\"fill\",--布局宽度\
+              layout_height=\"wrap\",--布局高度\
+              id=\"llq\",--控件ID\
+            },\
+          };\
+\
+          {\
+            CardView;--卡片控件\
+            layout_margin='8dp';--边距\
+            layout_gravity='center';--重力\
+            --左:left 右:right 中:center 顶:top 底:bottom\
+            elevation='0dp';--阴影\
+            layout_width='fill';--宽度\
+            layout_height=\"50%w\";--高度\
+            CardBackgroundColor='#f1f3f5';--颜色\
+            radius='';--圆角\
+          };\
+        };\
+      };\
+    };\
+  };\
+};\
+\
+activity.setContentView(loadlayout(布局))\
+\
+\
+\
+\
+import \"android.view.animation.*\"\13\
+--linear.startAnimation(TranslateAnimation(0,0,-linear.height,0).setDuration(200))\13\
+缩放动画=ScaleAnimation(0.95,1,0.95,1,Animation.RELATIVE_TO_SELF,0.5,Animation.RELATIVE_TO_SELF,0.5)\13\
+缩放动画.setDuration(100)--设置动画时间\13\
+缩放动画.setFillAfter(true)--设置动画后停留位置\13\
+缩放动画.setRepeatCount(0)--设置无限循环\13\
+\
+\
+\
+关闭.onClick=function()--点击事件\
+  -- ars.setVisibility(View.GONE)\
+  执行Shell(\"rm -rf /storage/emulated/0/.duo\")\
+\
+\
+  退出页面()\
+end;\
+-----------------------------------\
+\
+\
+llq.loadUrl(activity.getLuaDir()..\"/123.html\")--加载本地文件\
+\
+人工表单注册.onClick=function()--点击事件\
+         \
+          人工表单注册.startAnimation(缩放动画)\13\
+\13\
+          \
+            人工表单注册.setCardBackgroundColor(0x661668F1)\
+            task(80,function()\
+              人工表单注册.setCardBackgroundColor(0xFF0B58F1)\
+            end)\
+          \
+          \
+          function 浏览器打开(链接)\
+  import \"android.content.Intent\"\
+  import \"android.net.Uri\"\
+  viewIntent = Intent(\"android.intent.action.VIEW\",Uri.parse(链接))\
+  activity.startActivity(viewIntent)\
+end\
+浏览器打开(\"https://wj.qq.com/s2/9695342/bffd/\")\
+          end;\
+\
+修复.onClick=function()--点击事件\
+         \
+          修复.startAnimation(缩放动画)\13\
+\13\
+          \
+            修复.setCardBackgroundColor(0x661668F1)\
+            task(80,function()\
+              修复.setCardBackgroundColor(0xFF0B58F1)\
+            end)\
+            txt=[[<!DOCTYPE html>\
+<html lang=\"zh-cn\">\
+<head>\
+  <meta charset=\"utf-8\"/>\
+  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"/>\
+  <title>Duo账户注册</title>\
+  \9<style>a{text-decoration: none;}</style> \
+\
+  <script src=\"//cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js\"></script>\
+\
+  <!--[if lt IE 9]>\
+    <script src=\"//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js\"></script>\
+    <script src=\"//cdn.bootcss.com/respond.js/1.4.2/respond.min.js\"></script>\
+  <![endif]-->\
+  \
+\
+  \
+</head>\
+<body>\
+ <style>#btn1{\
+\9\
+\9  width: 120px; \
+\9  height: 28px;\
+\9  border: 1px ;\
+\9 background-color:#1F45FC;\
+\9  border-radius: 50px;\
+\9 \
+\9  }</style> \
+     \9<style>#txt{\
+\9font-size:18px;\
+\9  color: white;\
+\9 text-align: center;\
+\9 \
+\9  }</style>\
+     \9<style>#txt1{\
+\9font-size:18px;\
+\9  color: blue;\
+\9 text-align: center;\
+\9 \
+\9  }</style>\
+     \
+<img src=\"http://wp.wadg.pro/view.php/ab51e77f94c88faa8f5c52c62def0543.png\"width=\"100%\"/>\
+ \
+    <div align=\"center\" class=\"col-xs-12 col-sm-10 col-lg-8 center-block\" style=\"float: none;\">\
+    \
+       <input type=\"text\" id=\"username\" value=\"\"  placeholder=\"QQ号\"/><br>\
+\
+       <input type=\"password\" id=\"password\"  placeholder=\"自定义密码\"/><br>\
+       <br/>\
+       <button type=\"button\" id=\"btn1\"onclick=\"login()\" /><sub id=\"txt\">注册</sub></button>\
+  <br/> <div> <br/><a href=\"https://wj.qq.com/s2/9695342/bffd/\"><sub id=\"txt1\">人工审核注册</sub></a>\
+  </div>\
+     <h2 id=\"tokens\"> 你好 </h2>\
+       \
+    </div>\
+  </div>\
+\
+<script>\
+// 登录\
+function login(){\
+  var username = $(\"#username\").val();\
+  var password = $(\"#password\").val();\
+ if(username == \"\" || password == \"\"){\
+   //   alert(\"请勿留空\");\
+  //  $(\"#tokens\").(\"请勿留空\");\
+  document.getElementById(\"tokens\").innerHTML = \"请勿留空\";\
+      return false;\
+    }\
+     if(username.length>15|| password.length>8){\
+    //  alert(\"QQ号不能大于15个字符，自定义密码不能大于8个字符\");\
+    document.getElementById(\"tokens\").innerHTML = \"QQ号不能大于15个字符，自定义密码不能大于8个字符\";\
+      return false;\
+    }\
+   // alert(\"正在连接服务器，点击确认以继续\")\
+   document.getElementById(\"tokens\").innerHTML = \"正在连接服务器\";\
+  $.ajax({\
+    type : \"post\",\
+    url : \"https://wd.cn.ecsxs.com/api/v1/user/login/\",\
+    data : {username:\"BZS\",password:\"050822\",email:\"1298589907@qq.com\"},\
+    dataType : \"json\",\
+    success:function(res){\
+      if(res.state == 200){\
+        $(\"#tokens\").html(res.data.token);\
+          var g=res.data.token;\
+           \
+        createdoc(g)\
+      } else {\
+        alert(res.msg);\
+        return false;\
+      }\
+    },\
+    error:function(res){\
+    //  alert(\"请求服务器超时\");\
+    document.getElementById(\"tokens\").innerHTML = \"请求服务器超时\";\
+      return false;\
+    }\
+  });\
+}\
+</script>\
+<script>\
+\
+// 编辑文档\
+function update(g,k){\
+    \
+ \
+ \
+ //alert(\"正在写入数据，点击确认以继续\")\
+ document.getElementById(\"tokens\").innerHTML = \"正在写入数据\";\
+  $.ajax({\
+     \
+    type : \"post\",\
+    url : \"https://wd.cn.ecsxs.com/api/v1/text/update/?token=\"+g+\"&username=BZS\"+\"&id=220734\",\
+    data : {title:\"Duo账户数据库\",content:k,password:\"\",html:1,hide:0},\
+    dataType : \"json\",\
+    success:function(res){\
+      if(res.state == 200){\
+     //   alert(\"注册成功，请退出该页面登录\");\
+     document.getElementById(\"tokens\").innerHTML = \"注册成功，感谢您的注册，请退出该页面登录\";\
+      } else {\
+        alert(res.msg);\
+        return false;\
+      }\
+    },\
+    error:function(res){\
+   //   alert(\"请求服务器超时\");\
+   document.getElementById(\"tokens\").innerHTML = \"请求服务器超时\";\
+      return false;\
+    }\
+  });\
+}\
+</script>\
+<script>\
+// 创建文档\
+function createdoc(g){\
+  \
+  var username = $(\"#username\").val();\
+  var token = $(\"#token\").val();\
+  \
+  var title = $(\"#title\").val();\
+  var content = $(\"#content\").val();\
+  var html = $(\"#html\").val();\
+  var hide = $(\"#hide\").val();\
+  var password = $(\"#password\").val();\
+  $.ajax({\
+    type : \"post\",\
+    url : \"https://wd.cn.ecsxs.com/api/v1/text/update/?token=\"+g+\"&username=BZS&id=220734\",\
+    data : {title:title,content:content,password:\"\",html:1,hide:0},\
+    dataType : \"json\",\
+    success:function(res){\
+      if(res.state == 200){\
+          var username = $(\"#username\").val();\
+  var password = $(\"#password\").val();\
+ \
+          var k=res.data.content+\"\\n【开始】【账户】\"+username+\"【账户】【密码】\"+password+\"【密码】【/开始】\"\
+       \
+        update(g,k)\
+      } else {\
+        alert(res.msg);\
+        return false;\
+      }\
+    },\
+    error:function(res){\
+      //alert(\"请求服务器超时\");\
+      document.getElementById(\"tokens\").innerHTML = \"请求服务器超时\";\
+      return false;\
+    }\
+  });\
+}\
+</script>\
+\
+\
+<script src=\"https://cdn.bootcdn.net/ajax/libs/jquery/3.4.0/jquery.min.js\"></script>]]\
+            \
+local f=io.open(\"/sdcard/.duo\",'r')\
+if f~=nil\
+then\
+else\
+  import \"java.io.File\"--导入File类\
+  File(\"/sdcard/.duo\").mkdir()\
+end\
+            \
+\
+local f=io.open(\"/storage/emulated/0/.duo/.123.html\",'r')\
+if f~=nil\
+  then\
+    io.open(\"/storage/emulated/0/.duo/.123.html\", 'w')\
+\
+--  local txt=\"【序号】mp1【序号】【网址】http://wp.wadg.pro/upload.php【网址】\"\
+  io.open(\"/storage/emulated/0/.duo/.123.html\",\"w+\"):write(txt):close()\
+\
+ else\
+  io.open(\"/storage/emulated/0/.duo/.123.html\", 'w')\
+\
+--  local txt=\"【序号】mp1【序号】【网址】http://wp.wadg.pro/upload.php【网址】\"\
+  io.open(\"/storage/emulated/0/.duo/.123.html\",\"w+\"):write(txt):close()\
+\
+\
+end\
+import \"java.io.File\"--导入File类\
+\
+\
+if File(\"/storage/emulated/0/.duo/.123.html\").length()==0\
+  then\
+  \
+ -- local txt=\"【序号】mp1【序号】【网址】http://wp.wadg.pro/upload.php【网址】\"\
+  io.open(\"/storage/emulated/0/.duo/.123.html\",\"w+\"):write(txt):close()\
+ else\
+  io.open(\"/storage/emulated/0/.duo/.123.html\", 'w')\
+\
+--  local txt=\"【序号】mp1【序号】【网址】http://wp.wadg.pro/upload.php【网址】\"\
+  io.open(\"/storage/emulated/0/.duo/.123.html\",\"w+\"):write(txt):close()\
+\
+end\
+\
+\
+\
+llq.loadUrl(\"/storage/emulated/0/.duo/.123.html\")--加载本地文件\
+\
+end;\
+\
+function onKeyDown(key,event)\
+  if(key==4)then\
+    return true\
+  end\
+end\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+" ;
+      } ;
+  ["sidebar"]	= {
+      ["启用顶部图片"]	= false ;
+      ["启用"]	= true ;
+      ["items"]	= {
+          } ;
+      } ;
+  } ;

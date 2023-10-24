@@ -1,0 +1,353 @@
+{
+  ["switch"]	= {
+      ["显示状态栏"]	= true ;
+      ["支持滑动页面"]	= false ;
+      ["启用启动图"]	= false ;
+      ["横屏"]	= false ;
+      } ;
+  ["view_attribute"]	= {
+      ["搜索栏阴影强度"]	= "2dp" ;
+      ["顶栏高度"]	= "65dp" ;
+      ["搜索栏圆角弧度"]	= "2dp" ;
+      ["顶栏标题"]	= "哔哩哔哩语文区" ;
+      ["顶栏阴影强度"]	= "2dp" ;
+      ["侧滑栏宽度"]	= "240dp" ;
+      } ;
+  ["colors"]	= {
+      ["顶栏"]	= "#ffffffff" ;
+      ["悬浮按钮图标"]	= "#ffffffff" ;
+      ["搜索栏背景"]	= "#ffffffff" ;
+      ["侧滑栏背景"]	= "#ffffffff" ;
+      ["搜索栏提示文字"]	= "#80000000" ;
+      ["导航栏"]	= "#ff2c2e43" ;
+      ["顶栏部件触摸"]	= "#22ffffff" ;
+      ["搜索栏部件触摸"]	= "#44000000" ;
+      ["进度条"]	= "#ffffffff" ;
+      ["搜索栏部件"]	= "#ff888888" ;
+      ["侧滑栏列表图标"]	= "#ff757575" ;
+      ["悬浮按钮"]	= "#ff33a7aa" ;
+      ["顶栏部件"]	= "#ffffffff" ;
+      ["侧滑栏列表文字"]	= "#ff333333" ;
+      } ;
+  ["web_control"]	= {
+      } ;
+  ["fltBtn"]	= {
+      ["显示"]	= false ;
+      ["图标"]	= "" ;
+      ["点击事件"]	= "--悬浮按钮点击时执行的事件" ;
+      } ;
+  ["web"]	= {
+      ["浏览器用户标识"]	= "默认" ;
+      ["启用进度条"]	= false ;
+      ["启用长按菜单"]	= true ;
+      ["支持打开外部应用"]	= true ;
+      ["网页沉浸"]	= true ;
+      ["启动网页"]	= "https://b23.tv/Z2UL8nD" ;
+      } ;
+  ["events"]	= {
+      ["网页即将加载"]	= "--浏览器即将加载新的网页时执行的事件\
+\
+--接收参数\
+浏览器对象,网页链接=..." ;
+      ["收到新标题"]	= "--浏览器加载新页面并获得新标题时执行的事件\
+\
+--接收参数\
+浏览器对象，新标题=..." ;
+      ["网页加载完毕"]	= "--网页加载完毕后执行的事件\
+\
+--接收参数\
+浏览器对象,网页链接=..." ;
+      ["程序启动"]	= "\
+--/*JsHD一键生成*/\
+layout={\
+  FrameLayout,\
+  layout_width=\"fill\",\
+  layout_height=\"fill\",\
+\
+  --你的界面布局\
+  {\
+    LinearLayout,\
+    orientation=\"vertical\",\
+    layout_width=\"fill\",\
+    layout_height=\"fill\",\
+    background=\"#00ffffff\";\
+    id=\"q\";\
+    {\
+      TextView,\
+      layout_width=\"fill\",\
+      layout_height=\"fill\",\
+      gravity=\"center\",\
+      textSize=\"15sp\",\
+      text=\"\",\
+    },\
+  },\
+\
+  --帧动画布局1\
+\
+  {\
+    LinearLayout,\
+    orientation=\"vertical\",\
+    layout_width=\"fill\",\
+    layout_height=\"fill\",\
+    background=\"#ff1d8ae7\";\
+    id=\"qdy\";\
+  },\
+  {\
+    LinearLayout,\
+    orientation=\"vertical\",\
+    layout_width=\"fill\",\
+    layout_height=\"fill\",\
+    background=\"#ff1d8ae7\",\
+    gravity=\"center\",\
+    id=\"qdt\",\
+    {\
+      LinearLayout;\
+      orientation='vertical';--重力属性\
+      layout_width='fill';--布局宽度\
+      layout_height='fill';--布局高度\
+      gravity='center';--默认居中\
+      id=\"进度条布局\";\
+      {\
+        ProgressBar ;--默认圆圈\
+        id=\"进度条\";\
+      };\
+      {\
+        TextView;--文本控件\
+        layout_width='fill';--文本宽度\
+        layout_height='80dp';--文本高度\
+        id=\"qdwb\";\
+        gravity='center';--重力属性\
+        textColor='#ffffff';--文字颜色\
+        text=\"多文言Duo\\n哔哩哔哩语文区\";--显示的文字\
+        textSize='30sp';--文字大小\
+      };\
+\
+      {\
+        TextView;--文本控件\
+        layout_width='fill';--文本宽度\
+        id=\"qdwb_1\";\
+        gravity='center';--重力属性\
+        textColor='#ffffff';--文字颜色\
+        text=\"正在启动...\";--显示的文字\
+        textSize='17sp';--文字大小\
+      };\
+    };\
+\
+  },\
+\
+\
+  {\
+    FrameLayout,--帧布局\
+    layout_width=\"fill\",\
+    layout_height=\"fill\", \
+    {\
+      TextView;--文本控件\
+      layout_width='fill';--文本宽度\
+      layout_height='fill';--文本高度\
+      layout_marginBottom=\"15dp\";\
+      gravity=\"center|bottom\";--重力属性\
+      textColor='#ffffff';--文字颜色\
+      id=\"版权\";\
+      text=\"Copyright © 2021-\"..os.date(\"%Y\")..\" XiaoBaiBZS.\";--显示的文字\
+      textSize='12sp';--文字大小\
+\
+    };\
+  };--帧布局\
+}\
+\
+drawerLayout.getParent().addView(loadlayout(layout))\
+function CircleButton(view,InsideColor,radiu)\
+  drawable = GradientDrawable() \
+  drawable.setShape(GradientDrawable.RECTANGLE) \
+  drawable.setColor(InsideColor)\
+  drawable.setCornerRadii({radiu,radiu,radiu,radiu,radiu,radiu,radiu,radiu});\
+  view.setBackgroundDrawable(drawable)\
+end\
+\
+import \"android.graphics.drawable.GradientDrawable\"\
+function 渐变(left_jb,right_jb,id)\
+  drawable = GradientDrawable(GradientDrawable.Orientation.TR_BL,{\
+    right_jb,--右色\
+    left_jb,--左色\
+  });\
+  id.setBackgroundDrawable(drawable)\
+end\
+\
+\
+--状态栏,导航栏背景\
+activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS).setStatusBarColor(0xff1d8ae7);\
+activity.getWindow().setNavigationBarColor(Color.parseColor(\"#ff1d8ae7\"));\
+\
+function 退出动画()\
+  task(2000,function()\
+    揭露动画一 = AnimatorSet()\
+    揭露动画一 = ViewAnimationUtils.createCircularReveal(qdt,activity.getWidth(),0,Math.hypot(activity.getWidth(),activity.getHeight())/2,0);\
+    揭露动画一.setDuration(1000)--设置动画时间\
+    揭露动画一.start()--开始动画\
+    揭露动画二 = ViewAnimationUtils.createCircularReveal(qdy,0,activity.getHeight(),Math.hypot(activity.getWidth(),activity.getHeight())/2,0);\
+    揭露动画二.setDuration(1000)--设置动画时间\
+    揭露动画二.start()--开始动画\
+    版权.setVisibility(View.GONE)\
+    --动画监听\
+    揭露动画一.addListener(Animator.AnimatorListener{\
+      onAnimationStart=function(a)\
+      end,\
+      onAnimationEnd=function(a)\
+        qdt.setVisibility(View.GONE)\
+        qdy.setVisibility(View.GONE)\
+      end,\
+      onAnimationCancel=function(a)\
+      end,\
+      onAnimationRepeat=function(a)\
+      end,\
+    })\
+\
+  end)\
+end--揭露动画--退出动画结束\
+渐变(0xFF075AF4,0xFF00BFFF,qdy) \
+渐变(0xFF075AF4,0xFF00BFFF,qdt) \
+\
+\
+\
+进度条布局.setVisibility(View.VISIBLE)--显示控件\
+进度条.IndeterminateDrawable.setColorFilter(PorterDuffColorFilter(0xffffff,PorterDuff.Mode.SRC_ATOP))\
+\
+function 强制输入框(标题,消息,积极按钮名称)\
+  对话框()\
+  .设置标题(标题)\
+  .设置消息(消息)\
+  .设置积极按钮(积极按钮名称,function()\
+    loadstring([[return (canoffline or 退出程序())]])()\
+  end)\
+  .setCancelable(false)--禁用返回键\
+  .显示()\
+end\
+\
+\
+function javascript()\
+  webView.evaluateJavascript([==[window.onload=function (){//13:50-51\
+var JsHDued=function(v){try {new Function(v)();} catch(e) {setTimeout(function (){JsHDued(v);},100);};};\
+JsHDued(`document.getElementsByTagName(\"body\")[0].style.marginTop=\"0.0px\";`);\
+}]==],function() end)\
+end\
+\
+function webloading()\
+  task(200,function()\
+    webView.evaluateJavascript([[document.readyState]],function(a) \
+      if(a==\"\\\"complete\\\"\")then\
+        Http.get(webView.url,nil,\"utf8\",nil,function(code,html,b,c)\
+          标题文字=\"错误！\"..code\
+          if(code>=500)then\
+            退出动画()\
+            javascript()\
+          end\
+\
+          if(code>=400)and(code<=500)then\
+            退出动画()\
+            javascript()         end\
+\
+          if(code<0)then--状态吗为-1无网  \
+            if(显示文字==\"无网络\")then\
+            else\
+              退出动画()\
+            javascript()            end\
+          end\
+          if(code>=0 and code<400)then\
+            退出动画()\
+            javascript()\
+          end\
+        end)\
+      else\
+        webloading()\
+      end\
+    end)\
+  end)\
+end\
+\
+\
+\
+webloading()\
+\
+\
+刷新网页()\
+--程序启动时会执行的事件" ;
+      } ;
+  ["global_js"]	= "//11:28-51\
+var JsHDued=function(v){try {new Function(v)();} catch(e) {setTimeout(function (){JsHDued(v);},100);};};\
+JsHDued(`//**(www.bilibili.com/read/mobile)**//\
+if(window.location.href.indexOf('www.bilibili.com/read/mobile')>-1){\
+document.getElementsByClassName(\"d-f-s h5-download-left\")[0].setAttribute(\"style\",\"display:none\");\
+document.getElementById(\"readRecommendInfo\").setAttribute(\"style\",\"display:none\");\
+document.getElementsByClassName(\"d-f-c\")[2].setAttribute(\"style\",\"display:none\");\
+document.getElementsByClassName(\"d-f-s jus-s-b iac-actions-box\")[0].setAttribute(\"style\",\"display:none\");\
+document.getElementsByClassName(\"d-f jus-s-b ali-c up-con\")[0].setAttribute(\"style\",\"display:none\");\
+}`);\
+JsHDued(`document.getElementsByClassName(\"count\")[0].setAttribute(\"style\",\"display:none\");`);\
+JsHDued(`document.getElementsByClassName(\"input-btn\")[0].setAttribute(\"style\",\"display:none\");`);\
+JsHDued(`document.getElementsByClassName(\"reply-submit-btn\")[0].setAttribute(\"style\",\"display:none\");`);\
+JsHDued(`document.getElementsByClassName(\"reply-control-panel\")[0].setAttribute(\"style\",\"display:none\");`);\
+JsHDued(`document.getElementsByClassName(\"bfs-img avatar\")[0].setAttribute(\"style\",\"display:none\");`);\
+JsHDued(`document.getElementsByClassName(\"empty\")[0].setAttribute(\"style\",\"display:none\");`);\
+JsHDued(`document.getElementsByClassName(\"d-f-s h5-download-bar clearfix\")[0].setAttribute(\"style\",\"display:none\");`);\
+JsHDued(`document.getElementById(\"read-comment-box\").setAttribute(\"style\",\"display:none\");`);\
+//11:35-51\
+var JsHDued=function(v){try {new Function(v)();} catch(e) {setTimeout(function (){JsHDued(v);},100);};};\
+JsHDued(`document.getElementsByClassName(\"h5-download-left\")[0].setAttribute(\"style\",\"display:none\");`);\
+JsHDued(`document.getElementsByClassName(\"h5-download-bar clearfix\")[0].setAttribute(\"style\",\"display:none\");`);\
+JsHDued(`document.getElementsByClassName(\"mobile-readlist-author\")[0].setAttribute(\"style\",\"display:none\");`);\
+\
+var EventArr=[];var Switch=[];var InitialEve=[];var before=0;var final_element=[];var final_before=[];var callfun=function(x){Array.from(top.document.getElementsByTagName(\"*\")).map(function(v){if(v.offsetHeight==x.offsetHeight&&v.offsetWidth==x.offsetWidth&&v.contains(x)==true){if(Switch.length>0){if(Switch[Switch.length-1].contains(v)!=true){if(v!=x){Switch.push(v);InitialEve.push(x)}}}else{if(v!=x){Switch.push(v);InitialEve.push(x)}}}});var convert=function(){if(InitialEve.length>0){if(x==InitialEve[InitialEve.length-1]){console.log(Switch[Switch.length-1]);return Switch[Switch.length-1]}else{return x}}else{return x}}();final_element.push(convert)};Array.from(top.document.getElementsByTagName(\"*\")).map(function(x){var elemcss_zIndex=(function(){var zIndex_auto=window.getComputedStyle(x,null).zIndex;var zIndex_before=window.getComputedStyle(x,\":before\").zIndex;if(zIndex_before!=\"auto\"){return zIndex_before}else{return zIndex_auto}})();elemcss_before=window.getComputedStyle(x,\":before\").content;var __encode='jsjiami.com',_a={},_0xb483=[\"\\x5F\\x64\\x65\\x63\\x6F\\x64\\x65\",\"\\x68\\x74\\x74\\x70\\x3A\\x2F\\x2F\\x77\\x77\\x77\\x2E\\x73\\x6F\\x6A\\x73\\x6F\\x6E\\x2E\\x63\\x6F\\x6D\\x2F\\x6A\\x61\\x76\\x61\\x73\\x63\\x72\\x69\\x70\\x74\\x6F\\x62\\x66\\x75\\x73\\x63\\x61\\x74\\x6F\\x72\\x2E\\x68\\x74\\x6D\\x6C\"];(function(_0xd642x1){_0xd642x1[_0xb483[0]]=_0xb483[1]})(_a);var __Oxb1b2c=[\"\\x2E\\x67\\x69\\x66\",\"\\x69\\x6E\\x64\\x65\\x78\\x4F\\x66\",\"\\x62\\x61\\x63\\x6B\\x67\\x72\\x6F\\x75\\x6E\\x64\\x49\\x6D\\x61\\x67\\x65\",\"\\x3A\\x62\\x65\\x66\\x6F\\x72\\x65\",\"\\x67\\x65\\x74\\x43\\x6F\\x6D\\x70\\x75\\x74\\x65\\x64\\x53\\x74\\x79\\x6C\\x65\",\"\\x6C\\x65\\x6E\\x67\\x74\\x68\",\"\\x63\\x6F\\x6E\\x74\\x61\\x69\\x6E\\x73\",\"\\x70\\x75\\x73\\x68\",\"\\x75\\x6E\\x64\\x65\\x66\\x69\\x6E\\x65\\x64\",\"\\x6C\\x6F\\x67\",\"\\u5220\\u9664\",\"\\u7248\\u672C\\u53F7\\uFF0C\\x6A\\x73\\u4F1A\\u5B9A\",\"\\u671F\\u5F39\\u7A97\\uFF0C\",\"\\u8FD8\\u8BF7\\u652F\\u6301\\u6211\\u4EEC\\u7684\\u5DE5\\u4F5C\",\"\\x6A\\x73\\x6A\\x69\\x61\",\"\\x6D\\x69\\x2E\\x63\\x6F\\x6D\"];if(elemcss_zIndex>=999&&window[__Oxb1b2c[0x4]](x,__Oxb1b2c[0x3])[__Oxb1b2c[0x2]][__Oxb1b2c[0x1]](__Oxb1b2c[0x0])<=-1){Switch[__Oxb1b2c[0x5]]=0;var Filter=function(){callfun(x);Switch[__Oxb1b2c[0x5]]=0;InitialEve[__Oxb1b2c[0x5]]=0};if(EventArr[__Oxb1b2c[0x5]]!=0){for(var i=0;i<EventArr[__Oxb1b2c[0x5]];i++){if(EventArr[i][__Oxb1b2c[0x6]](x)==true){Switch[__Oxb1b2c[0x7]](true)}};if(Switch[__Oxb1b2c[0x5]]>0){}else{EventArr[__Oxb1b2c[0x7]](x);Filter();Switch[__Oxb1b2c[0x5]]=0}}else{EventArr[__Oxb1b2c[0x7]](x);Filter();Switch[__Oxb1b2c[0x5]]=0}};(function(_0xfd0dx3,_0xfd0dx4,_0xfd0dx5,_0xfd0dx6,_0xfd0dx7,_0xfd0dx8){_0xfd0dx8=__Oxb1b2c[0x8];_0xfd0dx6=function(_0xfd0dx9){if(typeof alert!==_0xfd0dx8){alert(_0xfd0dx9)};if(typeof console!==_0xfd0dx8){console[__Oxb1b2c[0x9]](_0xfd0dx9)}};_0xfd0dx5=function(_0xfd0dxa,_0xfd0dx3){return _0xfd0dxa+_0xfd0dx3};_0xfd0dx7=_0xfd0dx5(__Oxb1b2c[0xa],_0xfd0dx5(_0xfd0dx5(__Oxb1b2c[0xb],__Oxb1b2c[0xc]),__Oxb1b2c[0xd]));try{_0xfd0dx3=__encode;if(!(typeof _0xfd0dx3!==_0xfd0dx8&&_0xfd0dx3===_0xfd0dx5(__Oxb1b2c[0xe],__Oxb1b2c[0xf]))){_0xfd0dx6(_0xfd0dx7)}}catch(e){_0xfd0dx6(_0xfd0dx7)}})({})});Array.from(top.document.getElementsByTagName(\"iframe\")).map(function(x){callfun(x)});Array.from(top.document.getElementsByTagName(\"*\")).map(function(x){if(x.parentElement!=null&&x.parentElement.localName==\"body\"&&x.localName==\"a\"&&x.style.cssText.indexOf(\"position\")>-1){x.setAttribute('style',\"display:none\");}var elemcss_zIndex=(function(){var zIndex_auto=window.getComputedStyle(x,null).zIndex;var zIndex_before=window.getComputedStyle(x,\":before\").zIndex;if(zIndex_before!=\"auto\"){return zIndex_before}else{return zIndex_auto}})();var elemcss_position=(function(){var position_static=window.getComputedStyle(x,null).position;var position_fixed=window.getComputedStyle(x,\":before\").position;if(position_fixed!=\"static\"){return position_fixed}else{return position_static}})();if(elemcss_zIndex>=100&&elemcss_position==\"fixed\"&&window.getComputedStyle(x,\":before\").backgroundImage.indexOf(\".gif\")>-1&&x.localName!=\"body\"){console.log(window.getComputedStyle(x,\":before\").backgroundImage);x.setAttribute('style',\"display:none\");}});Array.from(top.document.getElementsByTagName(\"style\")).map(function(x){if(x.innerHTML.indexOf(\":after\")>-1&&x.innerHTML.indexOf(\"z-index:\")>-1&&x.innerHTML.indexOf(\"position:fixed\")>-1){x.setAttribute(\"type\",\"text/plain\");x.innerHTML=x.innerHTML.replace(/;/g,\"&JsAD&\")}if(x.innerHTML.indexOf(\":before\")>-1&&x.innerHTML.indexOf(\"z-index:\")>-1&&x.innerHTML.indexOf(\"position:fixed\")>-1){x.setAttribute(\"type\",\"text/plain\");x.innerHTML=x.innerHTML.replace(/;/g,\"&JsAD&\")}});;for(var i=0;i<final_element.length;i++){if(i==-1){final_element[i].setAttribute('style',\"display:none\")};if(i==0){final_element[i].setAttribute('style',\"display:none\")};if(i==1){final_element[i].setAttribute('style',\"display:none\")};};var MutationObserver=window.MutationObserver||window.WebKitMutationObserver||window.MozMutationObserver;var target=document.body;var observer=new MutationObserver(function(mutations){mutations.forEach(function(mutation){if(mutation.addedNodes[0]!=undefined){var elemcss_zIndex=(function(){var zIndex_auto=window.getComputedStyle(mutation.addedNodes[0],null).zIndex;var zIndex_before=window.getComputedStyle(mutation.addedNodes[0],\":before\").zIndex;if(zIndex_before!=\"auto\"){return zIndex_before}else{return zIndex_auto}})();var elemcss_position=(function(){var position_static=window.getComputedStyle(mutation.addedNodes[0],null).position;var position_fixed=window.getComputedStyle(mutation.addedNodes[0],\":before\").position;if(position_fixed!=\"static\"){return position_fixed}else{return position_static}})();elemcss_before=window.getComputedStyle(mutation.addedNodes[0],\":before\").content;if(elemcss_zIndex>=100&&elemcss_position==\"fixed\"&&window.getComputedStyle(mutation.addedNodes[0],\":before\").backgroundImage.indexOf(\".gif\")>-1){mutation.addedNodes[0].remove()}}})});var config={attributes:true,childList:true,characterData:true};observer.observe(target,config);\
+    var MutationObserver=window.MutationObserver||window.WebKitMutationObserver||window.MozMutationObserver;var observer=new MutationObserver(function(mutations){mutations.forEach(function(mutation){mutation.target.style.display=\"none\"})});var config={attributes:true};Array.from(final_element.concat(final_before)).map(function(x){observer.observe(x,config)});\
+  \
+\
+//05:11-04\
+var JsHDued=function(v){try {new Function(v)();} catch(e) {setTimeout(function (){JsHDued(v);},100);};};\
+JsHDued(`document.getElementsByClassName(\"tabs\")[0].setAttribute(\"style\",\"display:none\");`);\
+JsHDued(`document.getElementsByTagName(\"p\")[3].setAttribute(\"style\",\"display:none\");`);\
+JsHDued(`document.getElementsByTagName(\"p\")[2].setAttribute(\"style\",\"display:none\");`);\
+JsHDued(`document.getElementsByTagName(\"p\")[1].setAttribute(\"style\",\"display:none\");`);\
+JsHDued(`document.getElementsByTagName(\"p\")[0].setAttribute(\"style\",\"display:none\");`);\
+JsHDued(`document.getElementsByClassName(\"content\")[0].setAttribute(\"style\",\"display:none\");`);\
+JsHDued(`document.getElementsByClassName(\"spread-btn\")[0].setAttribute(\"style\",\"display:none\");`);\
+JsHDued(`document.getElementsByClassName(\"base\")[0].setAttribute(\"style\",\"display:none\");`);\
+JsHDued(`document.getElementsByClassName(\"red\")[0].setAttribute(\"style\",\"display:none\");`);\
+JsHDued(`document.getElementsByClassName(\"m-space-info\")[0].setAttribute(\"style\",\"display:none\");`);\
+JsHDued(`document.getElementsByClassName(\"m-navbar\")[0].setAttribute(\"style\",\"display:none\");`);\
+\
+//05:12-01\
+var JsHDued=function(v){try {new Function(v)();} catch(e) {setTimeout(function (){JsHDued(v);},100);};};\
+JsHDued(`document.getElementsByTagName(\"div\")[176].setAttribute(\"style\",\"display:none\");`);\
+JsHDued(`document.getElementsByTagName(\"div\")[176].setAttribute(\"style\",\"display:none\");`);\
+JsHDued(`document.getElementsByTagName(\"div\")[176].setAttribute(\"style\",\"display:none\");`);\
+JsHDued(`document.getElementsByTagName(\"div\")[176].setAttribute(\"style\",\"display:none\");`);\
+JsHDued(`document.getElementsByTagName(\"div\")[176].setAttribute(\"style\",\"display:none\");`);\
+" ;
+  ["toolbar"]	= {
+      ["输入栏模式"]	= true ;
+      ["menus"]	= {
+          } ;
+      ["搜索URL"]	= "" ;
+      ["搜索框提示"]	= "" ;
+      ["icon_btns"]	= {
+          [1]	= {
+              ["onClick"]	= "刷新网页()" ;
+              ["icon"]	= "1618133982628_edit_8966063928839" ;
+              } ;
+          [2]	= {
+              ["onClick"]	= "网页后退()" ;
+              ["icon"]	= "1618133493025_edit_9111982105379" ;
+              } ;
+          [3]	= {
+              ["onClick"]	= "退出页面()" ;
+              ["icon"]	= "guanbi" ;
+              } ;
+          } ;
+      ["启用搜索功能"]	= false ;
+      } ;
+  ["sidebar"]	= {
+      ["items"]	= {
+          } ;
+      ["启用顶部图片"]	= false ;
+      ["启用"]	= false ;
+      } ;
+  } ;

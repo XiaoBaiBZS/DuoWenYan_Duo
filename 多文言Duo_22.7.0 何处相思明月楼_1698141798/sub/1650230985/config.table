@@ -1,0 +1,3508 @@
+{
+  ["web_control"]	= {
+      } ;
+  ["colors"]	= {
+      ["顶栏部件"]	= "#ff000000" ;
+      ["侧滑栏背景"]	= "#ffffffff" ;
+      ["悬浮按钮"]	= "#ff33a7aa" ;
+      ["搜索栏部件触摸"]	= "#44000000" ;
+      ["搜索栏部件"]	= "#ff888888" ;
+      ["进度条"]	= "#00000000" ;
+      ["搜索栏提示文字"]	= "#80000000" ;
+      ["侧滑栏列表图标"]	= "#ff757575" ;
+      ["顶栏部件触摸"]	= "#22ffffff" ;
+      ["悬浮按钮图标"]	= "#ffffffff" ;
+      ["侧滑栏列表文字"]	= "#ff333333" ;
+      ["导航栏"]	= "#ff2c2e43" ;
+      ["搜索栏背景"]	= "#ffffffff" ;
+      ["顶栏"]	= "#ffffffff" ;
+      } ;
+  ["fltBtn"]	= {
+      ["图标"]	= "" ;
+      ["点击事件"]	= "--悬浮按钮点击时执行的事件" ;
+      ["显示"]	= true ;
+      } ;
+  ["switch"]	= {
+      ["支持滑动页面"]	= true ;
+      ["显示状态栏"]	= true ;
+      ["横屏"]	= false ;
+      ["启用启动图"]	= false ;
+      } ;
+  ["view_attribute"]	= {
+      ["搜索栏圆角弧度"]	= "2dp" ;
+      ["顶栏阴影强度"]	= "2dp" ;
+      ["顶栏高度"]	= "56dp" ;
+      ["搜索栏阴影强度"]	= "2dp" ;
+      ["顶栏标题"]	= "正在启动…" ;
+      ["侧滑栏宽度"]	= "240dp" ;
+      } ;
+  ["web"]	= {
+      ["启用长按菜单"]	= true ;
+      ["支持打开外部应用"]	= true ;
+      ["网页沉浸"]	= false ;
+      ["浏览器用户标识"]	= "默认" ;
+      ["启动网页"]	= "" ;
+      ["启用进度条"]	= true ;
+      } ;
+  ["events"]	= {
+      ["网页加载完毕"]	= "--网页加载完毕后执行的事件\
+\
+--接收参数\
+浏览器对象,网页链接=..." ;
+      ["收到新标题"]	= "--浏览器加载新页面并获得新标题时执行的事件\
+\
+--接收参数\
+浏览器对象，新标题=..." ;
+      ["网页即将加载"]	= "--浏览器即将加载新的网页时执行的事件\
+\
+--接收参数\
+浏览器对象,网页链接=..." ;
+      ["程序启动"]	= "require\"import\"\
+import \"android.app.*\"\
+import \"android.os.*\"\
+import \"android.widget.*\"\
+import \"android.view.*\"\
+--沐宇\
+e=\"#f1f3f5\"\
+import \"android.content.Intent\"\
+import \"android.net.Uri\"\
+import \"android.provider.Settings\"\
+\
+import \"android.app.ProgressDialog\"\
+import \"android.app.AlertDialog\"\
+\
+local appid =13179\
+--将 10001 改成你在 https://aus.nowtime.cc/console/app_list 获取的 APPID\
+--获取方法[教程可能有点旧(其实我太懒)，就先将就下吧] https://nowtime.cc/lua/331.html\
+\
+local packinfo = this.getPackageManager().getPackageInfo(this.getPackageName(),((32552732/2/2-8183)/10000-6-231)/9)\
+local appinfo = this.getPackageManager().getApplicationInfo(this.getPackageName(),0)\
+local versionName = tostring(packinfo.versionName)-- 版本名（cc.nowtime）\
+local versionCode = tonumber(packinfo.versionCode)-- 版本号（10010）\
+\
+local check_update_url = \"https://aus.nowtime.cc/api/query/update?appid=\"..appid..\"&version_code=\"..versionCode\
+local height=activity.getResources().getDimensionPixelSize(activity.getResources().getIdentifier(\"status_bar_height\",\"dimen\",\"android\"));\
+--也可以写成这样--来自@\\u4e8c\\u54c8 的简化\
+\
+\
+hhhh=\
+--主框架\
+\
+{\
+  LinearLayout;--线性布局\
+  layout_width='match_parent';--布局宽度\
+  layout_height='match_parent';--布局高度\
+  background='#FFFFFFFF';--布局背景颜色(或者图片路径)\
+  id='ars';\
+  {\
+    LinearLayout,--线性布局\
+    orientation='vertical',--方向\
+    layout_width='fill',--宽度\
+    layout_height='wrap',--高度\
+    background='#f1f3f5',--背景颜色或图片路径\
+    {\
+      CardView;--卡片控件\
+      layout_margin='8dp';--边距\
+      layout_gravity='center';--重力\
+      --左:left 右:right 中:center 顶:top 底:bottom\
+      elevation='0dp';--阴影\
+      layout_width='fill';--宽度\
+      layout_height=height;--高度\
+      CardBackgroundColor='#f1f3f5';--颜色\
+      radius='';--圆角\
+    };\
+    {\
+      CardView;--卡片控件\
+      layout_margin='15dp';--边距\
+      layout_gravity='center|top';--重力\
+      --左:left 右:right 中:center 顶:top 底:bottom\
+      elevation='0dp';--阴影\
+      layout_width='fill';--宽度\
+      layout_height='5%h';--高度\
+      CardBackgroundColor='#f1f3f5';--颜色\
+      radius='8dp';--圆角\
+      {\
+        TextView;--文本控件\
+        layout_width='fill';--文本宽度\
+        layout_height='fill';--文本高度\
+        gravity='left|center';--重力属性\
+        --左:left 右:right 中:center 顶:top 底:bottom\
+        textColor='#000000';--文字颜色\
+        text='关于';--显示的文字\
+        textSize='20dp';--文字大小\
+      };\
+      {\
+        ImageView;--图片控件\
+        src='gb.png';--图片路径\
+        layout_width='35dp';--图片宽度\
+        layout_height='35dp';--图片高度\
+        scaleType='fitXY';--图片显示类型\
+        layout_gravity='center|right';--卡片重力\
+        --左:left 右:right 中:center 顶:top 底:bottom\
+        id='关闭';\
+\
+      };\
+\
+\
+    };\
+\
+\
+\
+\
+\
+\
+\
+    --纵向滚动框架\
+    {\
+      ScrollView,\
+      layout_width=\"match_parent\";\
+      layout_height=\"match_parent\";\
+      VerticalScrollBarEnabled=false;\
+\
+\
+\
+\
+\
+      {\
+        LinearLayout;--线性布局\
+        Orientation='horizontal';--布局方向\
+        layout_width='match_parent';--布局宽度\
+        layout_height='match_parent';--布局高度\
+        background='#f1f3f5';--布局背景颜色\
+        id='ars';\
+\
+\
+        -- -----------左边竖布局开始--------------\
+        --左线程框架\
+\
+        {\
+          LinearLayout;\
+          orientation=\"vertical\";\
+          layout_width=\"fill\";\
+          layout_height=\"match_parent\";\
+          layout_marginLeft=\"\";\
+          {\
+            ImageView;--图片控件\
+            src='icon.png';--图片路径\
+            layout_width='80dp';--图片宽度\
+            layout_height='80dp';--图片高度\
+            scaleType='fitXY';--图片显示类型\
+\
+            layout_marginTop='20dp';--顶距\
+            layout_gravity='center|top';--卡片重力\
+            --左:left 右:right 中:center 顶:top 底:bottom\
+            id='ABC';\
+\
+          };\
+\
+          {\
+            CardView;--卡片控件\
+            layout_margin='8dp';--边距\
+            layout_gravity='center';--重力\
+            --左:left 右:right 中:center 顶:top 底:bottom\
+            elevation='0dp';--阴影\
+            layout_width='fill';--宽度\
+            layout_height='10%w';--高度\
+            CardBackgroundColor='#f1f3f5';--颜色\
+            radius='8dp';--圆角\
+            layout_marginTop='0dp';--顶距\
+            {\
+              TextView;--文本控件\
+              layout_width='fill';--文本宽度\
+              layout_height='fill';--文本高度\
+              gravity='top|center';--重力属性\
+              textColor='#000000';--文字颜色\
+              text=activity.getPackageManager().getPackageInfo(activity.getPackageName(), 0).applicationInfo.loadLabel(activity.getPackageManager());--显示的文字\
+              textSize='18dp';--文字大小\
+              id='ABC';\
+            };\
+            {\
+              TextView;--文本控件\
+              layout_width='fill';--文本宽度\
+              layout_height='fill';--文本高度\
+\
+              textColor='#FF8C8C8C';--文字颜色\
+              text=versionName;--显示的文字\
+              textSize='13dp';--文字大小\
+              gravity='bottom|center';--重力属性\
+              --左:left 右:right 中:center 顶:top 底:bottom\
+              id='检查更新';\
+            };\
+          };\
+          {\
+            TextView;--文本控件\
+            layout_width='fill';--文本宽度\
+            layout_height='3.5%h';--文本高度\
+            gravity='center|left';--重力属性\
+            textColor='#FF8C8C8C';--文字颜色\
+            text='关于多文言Duo';--显示的文字\
+            textSize='14dp';--文字大小\
+            layout_margin='';--边距\
+            layout_marginLeft='17dp';--左距\
+          };\
+          {\
+            CardView;--卡片控件\
+            layout_margin='';--边距\
+            layout_marginLeft='13dp';--左距\
+            layout_marginRight='13dp';--右距\
+            layout_marginTop='';--顶距\
+            layout_gravity='center';--重力\
+            --左:left 右:right 中:center 顶:top 底:bottom\
+            elevation='0dp';--阴影\
+            layout_width='fill';--宽度\
+            layout_height=\"wrap\";--高度\
+            CardBackgroundColor='#ffffffff';--颜色\
+            radius='17dp';--圆角\
+\
+            ------------\
+            {\
+              CardView;--卡片控件\
+              layout_margin='';--边距\
+              layout_gravity='';--重力\
+              layout_marginTop='';--顶距\
+              --左:left 右:right 中:center 顶:top 底:bottom\
+              elevation='0dp';--阴影\
+              layout_width='fill';--宽度\
+              layout_height='wrap';--高度\
+              CardBackgroundColor='#ffffffff';--颜色\
+              radius='';--圆角\
+              id='a1';\
+              {\
+                TextView;--文本控件\
+                layout_width='fill';--文本宽度\
+                layout_height='fill';--文本高度\
+                gravity='top|left';--重力属性\
+                textColor='#000000';--文字颜色\
+                text='多文言Duo是一个致力于高中语文学习的程序，旨在为用户提供一个集成沉浸式学习方式。集成了 古诗、文言、成语、词典、历史等功能。经过我们的许可，您便可以直接预览、下载我们原创的文学文档。如此便捷高效！';--显示的文字\
+                textSize='17dp';--文字大小\
+                layout_margin='18dp';--边距\
+                id='a1';\
+              };\
+\
+\
+            };\
+\
+\
+\
+          };\
+          ----\
+        ----\
+        ----\
+\
+\
+          {\
+            LinearLayout;\
+            orientation=\"vertical\";\
+            layout_width=\"fill\";\
+            layout_height=\"match_parent\";\
+            layout_marginLeft=\"\";\
+            {\
+              TextView;--文本控件\
+              layout_width='fill';--文本宽度\
+              layout_height='3.5%h';--文本高度\
+              gravity='center|left';--重力属性\
+              textColor='#FF8C8C8C';--文字颜色\
+              text='关于开发人员及相关功能页面辅助';--显示的文字\
+              textSize='14dp';--文字大小\
+              layout_margin='';--边距\
+              layout_marginLeft='17dp';--左距\
+            };\
+            {\
+              CardView;--卡片控件\
+              layout_margin='';--边距\
+              layout_marginLeft='13dp';--左距\
+              layout_marginRight='13dp';--右距\
+              layout_marginTop='';--顶距\
+              layout_gravity='center';--重力\
+              --左:left 右:right 中:center 顶:top 底:bottom\
+              elevation='0dp';--阴影\
+              layout_width='fill';--宽度\
+              layout_height='136%h';--高度\
+              CardBackgroundColor='#ffffffff';--颜色\
+              radius='17dp';--圆角\
+\
+\
+              ------------\
+\
+              {\
+                CardView;--卡片控件\
+                layout_margin='';--边距\
+                layout_gravity='';--重力\
+                layout_marginTop='';--顶距\
+                --左:left 右:right 中:center 顶:top 底:bottom\
+                elevation='0dp';--阴影\
+                layout_width='fill';--宽度\
+                layout_height='8%h';--高度\
+                CardBackgroundColor='#ffffffff';--颜色\
+                radius='';--圆角\
+                id='a3';\
+                {\
+                  TextView;--文本控件\
+                  layout_width='fill';--文本宽度\
+                  layout_height='fill';--文本高度\
+                  gravity='top|left';--重力属性\
+                  textColor='#000000';--文字颜色\
+                  text='@小白XiaoBai BZS';--显示的文字\
+                  textSize='17dp';--文字大小\
+                  layout_margin='8dp';--边距\
+                  id='a3';\
+                };\
+                {\
+                  TextView;--文本控件\
+                  layout_width='fill';--文本宽度\
+                  layout_height='fill';--文本高度\
+                  gravity='left|center';--重力属性\
+                  textColor='#FF8C8C8C';--文字颜色\
+                  text='程序开发者，功能集成';--显示的文字\
+                  textSize='11dp';--文字大小\
+                  layout_marginLeft='8dp';--左距\
+                  layout_marginTop='3.7%h';--顶距\
+                  id='a3';\
+\
+                };\
+                {\
+                  CardView;--卡片控件\
+                  layout_marginRight='10dp';--右距\
+                  layout_gravity='center|right';--重力\
+                  --左:left 右:right 中:center 顶:top 底:bottom\
+                  elevation='0dp';--阴影\
+                  layout_width='120dp';--宽度\
+                  layout_height='80dp';--高度\
+                  CardBackgroundColor='0';--颜色\
+                  radius='';--圆角\
+\
+                  {\
+                    ImageView;--图片控件\
+                    src='http://wp.wadg.pro/view.php/66f62423172adfbf24799ebd40b9777d.png';--图片路径\
+                    layout_width='fill';--图片宽度\
+                    layout_height='fill';--图片高度\
+                    scaleType='fitXY';--图片显示类型\
+                    id='a3';\
+                  };\
+                };\
+                {\
+                  CardView;--卡片控件\
+                  layout_margin='8dp';--边距\
+                  layout_gravity='center|right';--重力\
+                  --左:left 右:right 中:center 顶:top 底:bottom\
+                  elevation='0dp';--阴影\
+                  layout_width='22dp';--宽度\
+                  layout_height='22dp';--高度\
+                  CardBackgroundColor='0';--颜色\
+                  radius='';--圆角\
+\
+                  {\
+                    ImageView;--图片控件\
+                    src='http://wp.wadg.pro/view.php/332b0971bbe6511ea8cab46f44584e6e.png';--图片路径\
+                    layout_width='fill';--图片宽度\
+                    layout_height='fill';--图片高度\
+                    scaleType='fitXY';--图片显示类型\
+                    id='a3';\
+                  };\
+                };\
+                {\
+                  CardView;--卡片控件\
+                  layout_margin='';--边距\
+                  layout_gravity='center|bottom';--重力\
+                  --左:left 右:right 中:center 顶:top 底:bottom\
+                  elevation='0dp';--阴影\
+                  layout_width='fill';--宽度\
+                  layout_height='1dp';--高度\
+                  CardBackgroundColor='#f1f3f5';--颜色\
+                  radius='';--圆角\
+                  layout_marginLeft='8dp';--左距\
+                  layout_marginRight='8dp';--右距\
+                };\
+\
+              };\
+              {\
+                CardView;--卡片控件\
+                layout_margin='';--边距\
+                layout_gravity='';--重力\
+                layout_marginTop='8%h';--顶距\
+                --左:left 右:right 中:center 顶:top 底:bottom\
+                elevation='0dp';--阴影\
+                layout_width='fill';--宽度\
+                layout_height='8%h';--高度\
+                CardBackgroundColor='#ffffffff';--颜色\
+                radius='';--圆角\
+                id='a4';\
+                {\
+                  TextView;--文本控件\
+                  layout_width='fill';--文本宽度\
+                  layout_height='fill';--文本高度\
+                  gravity='top|left';--重力属性\
+                  textColor='#000000';--文字颜色\
+                  text='@多Duo';--显示的文字\
+                  textSize='17dp';--文字大小\
+                  layout_margin='8dp';--边距\
+                  id='a4';\
+                };\
+                {\
+                  TextView;--文本控件\
+                  layout_width='fill';--文本宽度\
+                  layout_height='fill';--文本高度\
+                  gravity='left|center';--重力属性\
+                  textColor='#FF8C8C8C';--文字颜色\
+                  text='原创文档提供';--显示的文字\
+                  textSize='11dp';--文字大小\
+                  layout_marginLeft='8dp';--左距\
+                  layout_marginTop='3.7%h';--顶距\
+                  id='a4';\
+\
+                };\
+                {\
+                  CardView;--卡片控件\
+                  layout_marginRight='54dp';--右距\
+                  layout_gravity='center|right';--重力\
+                  --左:left 右:right 中:center 顶:top 底:bottom\
+                  elevation='0dp';--阴影\
+                  layout_width='35dp';--宽度\
+                  layout_height='35dp';--高度\
+                  CardBackgroundColor='0';--颜色\
+                  radius='';--圆角\
+\
+                  {\
+                    ImageView;--图片控件\
+                    src='http://wp.wadg.pro/view.php/8a87b44564a4e3476cd4fd1b3410bc0d.png';--图片路径\
+                    layout_width='fill';--图片宽度\
+                    layout_height='fill';--图片高度\
+                    scaleType='fitXY';--图片显示类型\
+                    id='a4';\
+                  };\
+                };\
+                {\
+                  CardView;--卡片控件\
+                  layout_margin='8dp';--边距\
+                  layout_gravity='center|right';--重力\
+                  --左:left 右:right 中:center 顶:top 底:bottom\
+                  elevation='0dp';--阴影\
+                  layout_width='22dp';--宽度\
+                  layout_height='22dp';--高度\
+                  CardBackgroundColor='0';--颜色\
+                  radius='';--圆角\
+\
+                  {\
+                    ImageView;--图片控件\
+                    src='http://wp.wadg.pro/view.php/332b0971bbe6511ea8cab46f44584e6e.png';--图片路径\
+                    layout_width='fill';--图片宽度\
+                    layout_height='fill';--图片高度\
+                    scaleType='fitXY';--图片显示类型\
+                    id='a4';\
+                  };\
+                };\
+                {\
+                  CardView;--卡片控件\
+                  layout_margin='';--边距\
+                  layout_gravity='center|bottom';--重力\
+                  --左:left 右:right 中:center 顶:top 底:bottom\
+                  elevation='0dp';--阴影\
+                  layout_width='fill';--宽度\
+                  layout_height='1dp';--高度\
+                  CardBackgroundColor='#f1f3f5';--颜色\
+                  radius='';--圆角\
+                  layout_marginLeft='8dp';--左距\
+                  layout_marginRight='8dp';--右距\
+                };\
+\
+              };\
+              {\
+                CardView;--卡片控件\
+                layout_margin='';--边距\
+                layout_gravity='';--重力\
+                layout_marginTop='16%h';--顶距\
+                --左:left 右:right 中:center 顶:top 底:bottom\
+                elevation='0dp';--阴影\
+                layout_width='fill';--宽度\
+                layout_height='8%h';--高度\
+                CardBackgroundColor='#ffffffff';--颜色\
+                radius='';--圆角\
+                id='a5';\
+                {\
+                  TextView;--文本控件\
+                  layout_width='fill';--文本宽度\
+                  layout_height='fill';--文本高度\
+                  gravity='top|left';--重力属性\
+                  textColor='#000000';--文字颜色\
+                  text='@寒歌';--显示的文字\
+                  textSize='17dp';--文字大小\
+                  layout_margin='8dp';--边距\
+                  id='a5';\
+                };\
+                {\
+                  TextView;--文本控件\
+                  layout_width='fill';--文本宽度\
+                  layout_height='fill';--文本高度\
+                  gravity='left|center';--重力属性\
+                  textColor='#FF8C8C8C';--文字颜色\
+                  text='FusionApp';--显示的文字\
+                  textSize='11dp';--文字大小\
+                  layout_marginLeft='8dp';--左距\
+                  layout_marginTop='3.7%h';--顶距\
+                  id='a5';\
+\
+                };\
+                {\
+                  CardView;--卡片控件\
+                  layout_marginRight='10dp';--右距\
+                  layout_gravity='center|right';--重力\
+                  --左:left 右:right 中:center 顶:top 底:bottom\
+                  elevation='0dp';--阴影\
+                  layout_width='120dp';--宽度\
+                  layout_height='80dp';--高度\
+                  CardBackgroundColor='0';--颜色\
+                  radius='';--圆角\
+\
+                  {\
+                    ImageView;--图片控件\
+                    src='http://wp.wadg.pro/view.php/66f62423172adfbf24799ebd40b9777d.png';--图片路径\
+                    layout_width='fill';--图片宽度\
+                    layout_height='fill';--图片高度\
+                    scaleType='fitXY';--图片显示类型\
+                    id='a5';\
+                  };\
+                };\
+                {\
+                  CardView;--卡片控件\
+                  layout_margin='8dp';--边距\
+                  layout_gravity='center|right';--重力\
+                  --左:left 右:right 中:center 顶:top 底:bottom\
+                  elevation='0dp';--阴影\
+                  layout_width='22dp';--宽度\
+                  layout_height='22dp';--高度\
+                  CardBackgroundColor='0';--颜色\
+                  radius='';--圆角\
+\
+                  {\
+                    ImageView;--图片控件\
+                    src='http://wp.wadg.pro/view.php/332b0971bbe6511ea8cab46f44584e6e.png';--图片路径\
+                    layout_width='fill';--图片宽度\
+                    layout_height='fill';--图片高度\
+                    scaleType='fitXY';--图片显示类型\
+                    id='a5';\
+                  };\
+                };\
+                {\
+                  CardView;--卡片控件\
+                  layout_margin='';--边距\
+                  layout_gravity='center|bottom';--重力\
+                  --左:left 右:right 中:center 顶:top 底:bottom\
+                  elevation='0dp';--阴影\
+                  layout_width='fill';--宽度\
+                  layout_height='1dp';--高度\
+                  CardBackgroundColor='#f1f3f5';--颜色\
+                  radius='';--圆角\
+                  layout_marginLeft='8dp';--左距\
+                  layout_marginRight='8dp';--右距\
+                };\
+\
+              };\
+              {\
+                CardView;--卡片控件\
+                layout_margin='';--边距\
+                layout_gravity='';--重力\
+                layout_marginTop='24%h';--顶距\
+                --左:left 右:right 中:center 顶:top 底:bottom\
+                elevation='0dp';--阴影\
+                layout_width='fill';--宽度\
+                layout_height='8%h';--高度\
+                CardBackgroundColor='#ffffffff';--颜色\
+                radius='';--圆角\
+                id='a6';\
+                {\
+                  TextView;--文本控件\
+                  layout_width='fill';--文本宽度\
+                  layout_height='fill';--文本高度\
+                  gravity='top|left';--重力属性\
+                  textColor='#000000';--文字颜色\
+                  text='@壹影';--显示的文字\
+                  textSize='17dp';--文字大小\
+                  layout_margin='8dp';--边距\
+                  id='a6';\
+                };\
+                {\
+                  TextView;--文本控件\
+                  layout_width='fill';--文本宽度\
+                  layout_height='fill';--文本高度\
+                  gravity='left|center';--重力属性\
+                  textColor='#FF8C8C8C';--文字颜色\
+                  text='JsHD调试器';--显示的文字\
+                  textSize='11dp';--文字大小\
+                  layout_marginLeft='8dp';--左距\
+                  layout_marginTop='3.7%h';--顶距\
+                  id='a6';\
+\
+                };\
+                {\
+                  CardView;--卡片控件\
+                  layout_marginRight='10dp';--右距\
+                  layout_gravity='center|right';--重力\
+                  --左:left 右:right 中:center 顶:top 底:bottom\
+                  elevation='0dp';--阴影\
+                  layout_width='120dp';--宽度\
+                  layout_height='80dp';--高度\
+                  CardBackgroundColor='0';--颜色\
+                  radius='';--圆角\
+\
+                  {\
+                    ImageView;--图片控件\
+                    src='http://wp.wadg.pro/view.php/66f62423172adfbf24799ebd40b9777d.png';--图片路径\
+                    layout_width='fill';--图片宽度\
+                    layout_height='fill';--图片高度\
+                    scaleType='fitXY';--图片显示类型\
+                    id='a6';\
+                  };\
+                };\
+                {\
+                  CardView;--卡片控件\
+                  layout_margin='8dp';--边距\
+                  layout_gravity='center|right';--重力\
+                  --左:left 右:right 中:center 顶:top 底:bottom\
+                  elevation='0dp';--阴影\
+                  layout_width='22dp';--宽度\
+                  layout_height='22dp';--高度\
+                  CardBackgroundColor='0';--颜色\
+                  radius='';--圆角\
+\
+                  {\
+                    ImageView;--图片控件\
+                    src='http://wp.wadg.pro/view.php/332b0971bbe6511ea8cab46f44584e6e.png';--图片路径\
+                    layout_width='fill';--图片宽度\
+                    layout_height='fill';--图片高度\
+                    scaleType='fitXY';--图片显示类型\
+                    id='a6';\
+                  };\
+                };\
+                {\
+                  CardView;--卡片控件\
+                  layout_margin='';--边距\
+                  layout_gravity='center|bottom';--重力\
+                  --左:left 右:right 中:center 顶:top 底:bottom\
+                  elevation='0dp';--阴影\
+                  layout_width='fill';--宽度\
+                  layout_height='1dp';--高度\
+                  CardBackgroundColor='#f1f3f5';--颜色\
+                  radius='';--圆角\
+                  layout_marginLeft='8dp';--左距\
+                  layout_marginRight='8dp';--右距\
+                };\
+\
+              };\
+              {\
+                CardView;--卡片控件\
+                layout_margin='';--边距\
+                layout_gravity='';--重力\
+                layout_marginTop='32%h';--顶距\
+                --左:left 右:right 中:center 顶:top 底:bottom\
+                elevation='0dp';--阴影\
+                layout_width='fill';--宽度\
+                layout_height='8%h';--高度\
+                CardBackgroundColor='#ffffffff';--颜色\
+                radius='';--圆角\
+                id='a7';\
+                {\
+                  TextView;--文本控件\
+                  layout_width='fill';--文本宽度\
+                  layout_height='fill';--文本高度\
+                  gravity='top|left';--重力属性\
+                  textColor='#000000';--文字颜色\
+                  text='@京都遣密使';--显示的文字\
+                  textSize='17dp';--文字大小\
+                  layout_margin='8dp';--边距\
+                  id='a7';\
+                };\
+                {\
+                  TextView;--文本控件\
+                  layout_width='fill';--文本宽度\
+                  layout_height='fill';--文本高度\
+                  gravity='left|center';--重力属性\
+                  textColor='#FF8C8C8C';--文字颜色\
+                  text='短径聚合功能提供';--显示的文字\
+                  textSize='11dp';--文字大小\
+                  layout_marginLeft='8dp';--左距\
+                  layout_marginTop='3.7%h';--顶距\
+                  id='a7';\
+\
+                };\
+                {\
+                  CardView;--卡片控件\
+                  layout_marginRight='10dp';--右距\
+                  layout_gravity='center|right';--重力\
+                  --左:left 右:right 中:center 顶:top 底:bottom\
+                  elevation='0dp';--阴影\
+                  layout_width='120dp';--宽度\
+                  layout_height='80dp';--高度\
+                  CardBackgroundColor='0';--颜色\
+                  radius='';--圆角\
+\
+                  {\
+                    ImageView;--图片控件\
+                    src='http://wp.wadg.pro/view.php/66f62423172adfbf24799ebd40b9777d.png';--图片路径\
+                    layout_width='fill';--图片宽度\
+                    layout_height='fill';--图片高度\
+                    scaleType='fitXY';--图片显示类型\
+                    id='a7';\
+                  };\
+                };\
+                {\
+                  CardView;--卡片控件\
+                  layout_margin='8dp';--边距\
+                  layout_gravity='center|right';--重力\
+                  --左:left 右:right 中:center 顶:top 底:bottom\
+                  elevation='0dp';--阴影\
+                  layout_width='22dp';--宽度\
+                  layout_height='22dp';--高度\
+                  CardBackgroundColor='0';--颜色\
+                  radius='';--圆角\
+\
+                  {\
+                    ImageView;--图片控件\
+                    src='http://wp.wadg.pro/view.php/332b0971bbe6511ea8cab46f44584e6e.png';--图片路径\
+                    layout_width='fill';--图片宽度\
+                    layout_height='fill';--图片高度\
+                    scaleType='fitXY';--图片显示类型\
+                    id='a7';\
+                  };\
+                };\
+                {\
+                  CardView;--卡片控件\
+                  layout_margin='';--边距\
+                  layout_gravity='center|bottom';--重力\
+                  --左:left 右:right 中:center 顶:top 底:bottom\
+                  elevation='0dp';--阴影\
+                  layout_width='fill';--宽度\
+                  layout_height='1dp';--高度\
+                  CardBackgroundColor='#f1f3f5';--颜色\
+                  radius='';--圆角\
+                  layout_marginLeft='8dp';--左距\
+                  layout_marginRight='8dp';--右距\
+                };\
+\
+              };\
+              {\
+                CardView;--卡片控件\
+                layout_margin='';--边距\
+                layout_gravity='';--重力\
+                layout_marginTop='40%h';--顶距\
+                --左:left 右:right 中:center 顶:top 底:bottom\
+                elevation='0dp';--阴影\
+                layout_width='fill';--宽度\
+                layout_height='8%h';--高度\
+                CardBackgroundColor='#ffffffff';--颜色\
+                radius='';--圆角\
+                id='a8';\
+                {\
+                  TextView;--文本控件\
+                  layout_width='fill';--文本宽度\
+                  layout_height='fill';--文本高度\
+                  gravity='top|left';--重力属性\
+                  textColor='#000000';--文字颜色\
+                  text='@Juice123';--显示的文字\
+                  textSize='17dp';--文字大小\
+                  layout_margin='8dp';--边距\
+                  id='a8';\
+                };\
+                {\
+                  TextView;--文本控件\
+                  layout_width='fill';--文本宽度\
+                  layout_height='fill';--文本高度\
+                  gravity='left|center';--重力属性\
+                  textColor='#FF8C8C8C';--文字颜色\
+                  text='lua页面编辑器';--显示的文字\
+                  textSize='11dp';--文字大小\
+                  layout_marginLeft='8dp';--左距\
+                  layout_marginTop='3.7%h';--顶距\
+                  id='a8';\
+\
+                };\
+                {\
+                  CardView;--卡片控件\
+                  layout_marginRight='10dp';--右距\
+                  layout_gravity='center|right';--重力\
+                  --左:left 右:right 中:center 顶:top 底:bottom\
+                  elevation='0dp';--阴影\
+                  layout_width='120dp';--宽度\
+                  layout_height='80dp';--高度\
+                  CardBackgroundColor='0';--颜色\
+                  radius='';--圆角\
+\
+                  {\
+                    ImageView;--图片控件\
+                    src='http://wp.wadg.pro/view.php/66f62423172adfbf24799ebd40b9777d.png';--图片路径\
+                    layout_width='fill';--图片宽度\
+                    layout_height='fill';--图片高度\
+                    scaleType='fitXY';--图片显示类型\
+                    id='a8';\
+                  };\
+                };\
+                {\
+                  CardView;--卡片控件\
+                  layout_margin='8dp';--边距\
+                  layout_gravity='center|right';--重力\
+                  --左:left 右:right 中:center 顶:top 底:bottom\
+                  elevation='0dp';--阴影\
+                  layout_width='22dp';--宽度\
+                  layout_height='22dp';--高度\
+                  CardBackgroundColor='0';--颜色\
+                  radius='';--圆角\
+                  id='a8';\
+                  {\
+                    ImageView;--图片控件\
+                    src='http://wp.wadg.pro/view.php/332b0971bbe6511ea8cab46f44584e6e.png';--图片路径\
+                    layout_width='fill';--图片宽度\
+                    layout_height='fill';--图片高度\
+                    scaleType='fitXY';--图片显示类型\
+\
+                  };\
+                };\
+                {\
+                  CardView;--卡片控件\
+                  layout_margin='';--边距\
+                  layout_gravity='center|bottom';--重力\
+                  --左:left 右:right 中:center 顶:top 底:bottom\
+                  elevation='0dp';--阴影\
+                  layout_width='fill';--宽度\
+                  layout_height='1dp';--高度\
+                  CardBackgroundColor='#f1f3f5';--颜色\
+                  radius='';--圆角\
+                  layout_marginLeft='8dp';--左距\
+                  layout_marginRight='8dp';--右距\
+                };\
+\
+              };\
+              {\
+                CardView;--卡片控件\
+                layout_margin='';--边距\
+                layout_gravity='';--重力\
+                layout_marginTop='48%h';--顶距\
+                --左:left 右:right 中:center 顶:top 底:bottom\
+                elevation='0dp';--阴影\
+                layout_width='fill';--宽度\
+                layout_height='8%h';--高度\
+                CardBackgroundColor='#ffffffff';--颜色\
+                radius='';--圆角\
+                id='a9';\
+                {\
+                  TextView;--文本控件\
+                  layout_width='fill';--文本宽度\
+                  layout_height='fill';--文本高度\
+                  gravity='top|left';--重力属性\
+                  textColor='#000000';--文字颜色\
+                  text='云储互联团队';--显示的文字\
+                  textSize='17dp';--文字大小\
+                  layout_margin='8dp';--边距\
+                  id='a9';\
+                };\
+                {\
+                  TextView;--文本控件\
+                  layout_width='fill';--文本宽度\
+                  layout_height='fill';--文本高度\
+                  gravity='left|center';--重力属性\
+                  textColor='#FF8C8C8C';--文字颜色\
+                  text='云储&云储lite平台，远程文档接口';--显示的文字\
+                  textSize='11dp';--文字大小\
+                  layout_marginLeft='8dp';--左距\
+                  layout_marginTop='3.7%h';--顶距\
+                  id='a9';\
+\
+                };\
+                {\
+                  CardView;--卡片控件\
+                  layout_marginRight='54dp';--右距\
+                  layout_gravity='center|right';--重力\
+                  --左:left 右:right 中:center 顶:top 底:bottom\
+                  elevation='0dp';--阴影\
+                  layout_width='33dp';--宽度\
+                  layout_height='33dp';--高度\
+                  CardBackgroundColor='0';--颜色\
+                  radius='';--圆角\
+\
+                  {\
+                    ImageView;--图片控件\
+                    src='http://wp.wadg.pro/view.php/be70e4e11b88293269280265f252435b.png';--图片路径\
+                    layout_width='fill';--图片宽度\
+                    layout_height='fill';--图片高度\
+                    scaleType='fitXY';--图片显示类型\
+                    id='a9';\
+                  };\
+                };\
+                {\
+                  CardView;--卡片控件\
+                  layout_margin='8dp';--边距\
+                  layout_gravity='center|right';--重力\
+                  --左:left 右:right 中:center 顶:top 底:bottom\
+                  elevation='0dp';--阴影\
+                  layout_width='22dp';--宽度\
+                  layout_height='22dp';--高度\
+                  CardBackgroundColor='0';--颜色\
+                  radius='';--圆角\
+\
+                  {\
+                    ImageView;--图片控件\
+                    src='http://wp.wadg.pro/view.php/332b0971bbe6511ea8cab46f44584e6e.png';--图片路径\
+                    layout_width='fill';--图片宽度\
+                    layout_height='fill';--图片高度\
+                    scaleType='fitXY';--图片显示类型\
+                    id='a9';\
+                  };\
+                };\
+                {\
+                  CardView;--卡片控件\
+                  layout_margin='';--边距\
+                  layout_gravity='center|bottom';--重力\
+                  --左:left 右:right 中:center 顶:top 底:bottom\
+                  elevation='0dp';--阴影\
+                  layout_width='fill';--宽度\
+                  layout_height='1dp';--高度\
+                  CardBackgroundColor='#f1f3f5';--颜色\
+                  radius='';--圆角\
+                  layout_marginLeft='8dp';--左距\
+                  layout_marginRight='8dp';--右距\
+                };\
+\
+              };\
+              {\
+                CardView;--卡片控件\
+                layout_margin='';--边距\
+                layout_gravity='';--重力\
+                layout_marginTop='56%h';--顶距\
+                --左:left 右:right 中:center 顶:top 底:bottom\
+                elevation='0dp';--阴影\
+                layout_width='fill';--宽度\
+                layout_height='8%h';--高度\
+                CardBackgroundColor='#ffffffff';--颜色\
+                radius='';--圆角\
+                id='a10';\
+                {\
+                  TextView;--文本控件\
+                  layout_width='fill';--文本宽度\
+                  layout_height='fill';--文本高度\
+                  gravity='top|left';--重力属性\
+                  textColor='#000000';--文字颜色\
+                  text='蓝奏云';--显示的文字\
+                  textSize='17dp';--文字大小\
+                  layout_margin='8dp';--边距\
+                  id='a10';\
+                };\
+                {\
+                  TextView;--文本控件\
+                  layout_width='fill';--文本宽度\
+                  layout_height='fill';--文本高度\
+                  gravity='left|center';--重力属性\
+                  textColor='#FF8C8C8C';--文字颜色\
+                  text='文件下载功能';--显示的文字\
+                  textSize='11dp';--文字大小\
+                  layout_marginLeft='8dp';--左距\
+                  layout_marginTop='3.7%h';--顶距\
+                  id='a10';\
+\
+                };\
+                {\
+                  CardView;--卡片控件\
+                  layout_marginRight='54dp';--右距\
+                  layout_gravity='center|right';--重力\
+                  --左:left 右:right 中:center 顶:top 底:bottom\
+                  elevation='0dp';--阴影\
+                  layout_width='33dp';--宽度\
+                  layout_height='33dp';--高度\
+                  CardBackgroundColor='0';--颜色\
+                  radius='';--圆角\
+\
+                  {\
+                    ImageView;--图片控件\
+                    src='http://wp.wadg.pro/view.php/be70e4e11b88293269280265f252435b.png';--图片路径\
+                    layout_width='fill';--图片宽度\
+                    layout_height='fill';--图片高度\
+                    scaleType='fitXY';--图片显示类型\
+                    id='a10';\
+                  };\
+                };\
+                {\
+                  CardView;--卡片控件\
+                  layout_margin='8dp';--边距\
+                  layout_gravity='center|right';--重力\
+                  --左:left 右:right 中:center 顶:top 底:bottom\
+                  elevation='0dp';--阴影\
+                  layout_width='22dp';--宽度\
+                  layout_height='22dp';--高度\
+                  CardBackgroundColor='0';--颜色\
+                  radius='';--圆角\
+\
+                  {\
+                    ImageView;--图片控件\
+                    src='http://wp.wadg.pro/view.php/332b0971bbe6511ea8cab46f44584e6e.png';--图片路径\
+                    layout_width='fill';--图片宽度\
+                    layout_height='fill';--图片高度\
+                    scaleType='fitXY';--图片显示类型\
+                    id='a10';\
+                  };\
+                };\
+\
+                {\
+                  CardView;--卡片控件\
+                  layout_margin='';--边距\
+                  layout_gravity='center|bottom';--重力\
+                  --左:left 右:right 中:center 顶:top 底:bottom\
+                  elevation='0dp';--阴影\
+                  layout_width='fill';--宽度\
+                  layout_height='1dp';--高度\
+                  CardBackgroundColor='#f1f3f5';--颜色\
+                  radius='';--圆角\
+                  layout_marginLeft='8dp';--左距\
+                  layout_marginRight='8dp';--右距\
+                };\
+\
+              };\
+              {\
+                CardView;--卡片控件\
+                layout_margin='';--边距\
+                layout_gravity='';--重力\
+                layout_marginTop='64%h';--顶距\
+                --左:left 右:right 中:center 顶:top 底:bottom\
+                elevation='0dp';--阴影\
+                layout_width='fill';--宽度\
+                layout_height='8%h';--高度\
+                CardBackgroundColor='#ffffffff';--颜色\
+                radius='';--圆角\
+                id='a11';\
+                {\
+                  TextView;--文本控件\
+                  layout_width='fill';--文本宽度\
+                  layout_height='fill';--文本高度\
+                  gravity='top|left';--重力属性\
+                  textColor='#000000';--文字颜色\
+                  text='金山文档';--显示的文字\
+                  textSize='17dp';--文字大小\
+                  layout_margin='8dp';--边距\
+                  id='a11';\
+                };\
+                {\
+                  TextView;--文本控件\
+                  layout_width='fill';--文本宽度\
+                  layout_height='fill';--文本高度\
+                  gravity='left|center';--重力属性\
+                  textColor='#FF8C8C8C';--文字颜色\
+                  text='直览文件更新服务功能，文件预览编辑服务';--显示的文字\
+                  textSize='11dp';--文字大小\
+                  layout_marginLeft='8dp';--左距\
+                  layout_marginTop='3.7%h';--顶距\
+                  id='a11';\
+\
+                };\
+                {\
+                  CardView;--卡片控件\
+                  layout_marginRight='54dp';--右距\
+                  layout_gravity='center|right';--重力\
+                  --左:left 右:right 中:center 顶:top 底:bottom\
+                  elevation='0dp';--阴影\
+                  layout_width='33dp';--宽度\
+                  layout_height='33dp';--高度\
+                  CardBackgroundColor='0';--颜色\
+                  radius='';--圆角\
+\
+                  {\
+                    ImageView;--图片控件\
+                    src='http://wp.wadg.pro/view.php/be70e4e11b88293269280265f252435b.png';--图片路径\
+                    layout_width='fill';--图片宽度\
+                    layout_height='fill';--图片高度\
+                    scaleType='fitXY';--图片显示类型\
+                    id='a11';\
+                  };\
+                };\
+                {\
+                  CardView;--卡片控件\
+                  layout_margin='8dp';--边距\
+                  layout_gravity='center|right';--重力\
+                  --左:left 右:right 中:center 顶:top 底:bottom\
+                  elevation='0dp';--阴影\
+                  layout_width='22dp';--宽度\
+                  layout_height='22dp';--高度\
+                  CardBackgroundColor='0';--颜色\
+                  radius='';--圆角\
+\
+                  {\
+                    ImageView;--图片控件\
+                    src='http://wp.wadg.pro/view.php/332b0971bbe6511ea8cab46f44584e6e.png';--图片路径\
+                    layout_width='fill';--图片宽度\
+                    layout_height='fill';--图片高度\
+                    scaleType='fitXY';--图片显示类型\
+                    id='a11';\
+                  };\
+                };\
+                {\
+                  CardView;--卡片控件\
+                  layout_margin='';--边距\
+                  layout_gravity='center|bottom';--重力\
+                  --左:left 右:right 中:center 顶:top 底:bottom\
+                  elevation='0dp';--阴影\
+                  layout_width='fill';--宽度\
+                  layout_height='1dp';--高度\
+                  CardBackgroundColor='#f1f3f5';--颜色\
+                  radius='';--圆角\
+                  layout_marginLeft='8dp';--左距\
+                  layout_marginRight='8dp';--右距\
+                };\
+\
+              };\
+              {\
+                CardView;--卡片控件\
+                layout_margin='';--边距\
+                layout_gravity='';--重力\
+                layout_marginTop='72%h';--顶距\
+                --左:left 右:right 中:center 顶:top 底:bottom\
+                elevation='0dp';--阴影\
+                layout_width='fill';--宽度\
+                layout_height='8%h';--高度\
+                CardBackgroundColor='#ffffffff';--颜色\
+                radius='';--圆角\
+                id='a12';\
+                {\
+                  TextView;--文本控件\
+                  layout_width='fill';--文本宽度\
+                  layout_height='fill';--文本高度\
+                  gravity='top|left';--重力属性\
+                  textColor='#000000';--文字颜色\
+                  text='腾讯兔小巢';--显示的文字\
+                  textSize='17dp';--文字大小\
+                  layout_margin='8dp';--边距\
+                  id='a12';\
+                };\
+                {\
+                  TextView;--文本控件\
+                  layout_width='fill';--文本宽度\
+                  layout_height='fill';--文本高度\
+                  gravity='left|center';--重力属性\
+                  textColor='#FF8C8C8C';--文字颜色\
+                  text='多社区 反馈交流平台';--显示的文字\
+                  textSize='11dp';--文字大小\
+                  layout_marginLeft='8dp';--左距\
+                  layout_marginTop='3.7%h';--顶距\
+                  id='a12';\
+\
+                };\
+                {\
+                  CardView;--卡片控件\
+                  layout_marginRight='54dp';--右距\
+                  layout_gravity='center|right';--重力\
+                  --左:left 右:right 中:center 顶:top 底:bottom\
+                  elevation='0dp';--阴影\
+                  layout_width='33dp';--宽度\
+                  layout_height='33dp';--高度\
+                  CardBackgroundColor='0';--颜色\
+                  radius='';--圆角\
+\
+                  {\
+                    ImageView;--图片控件\
+                    src='http://wp.wadg.pro/view.php/be70e4e11b88293269280265f252435b.png';--图片路径\
+                    layout_width='fill';--图片宽度\
+                    layout_height='fill';--图片高度\
+                    scaleType='fitXY';--图片显示类型\
+                    id='a12';\
+                  };\
+                };\
+                {\
+                  CardView;--卡片控件\
+                  layout_margin='8dp';--边距\
+                  layout_gravity='center|right';--重力\
+                  --左:left 右:right 中:center 顶:top 底:bottom\
+                  elevation='0dp';--阴影\
+                  layout_width='22dp';--宽度\
+                  layout_height='22dp';--高度\
+                  CardBackgroundColor='0';--颜色\
+                  radius='';--圆角\
+\
+                  {\
+                    ImageView;--图片控件\
+                    src='http://wp.wadg.pro/view.php/332b0971bbe6511ea8cab46f44584e6e.png';--图片路径\
+                    layout_width='fill';--图片宽度\
+                    layout_height='fill';--图片高度\
+                    scaleType='fitXY';--图片显示类型\
+                    id='a12';\
+                  };\
+                };\
+                {\
+                  CardView;--卡片控件\
+                  layout_margin='';--边距\
+                  layout_gravity='center|bottom';--重力\
+                  --左:left 右:right 中:center 顶:top 底:bottom\
+                  elevation='0dp';--阴影\
+                  layout_width='fill';--宽度\
+                  layout_height='1dp';--高度\
+                  CardBackgroundColor='#f1f3f5';--颜色\
+                  radius='';--圆角\
+                  layout_marginLeft='8dp';--左距\
+                  layout_marginRight='8dp';--右距\
+                };\
+\
+              };\
+              {\
+                CardView;--卡片控件\
+                layout_margin='';--边距\
+                layout_gravity='';--重力\
+                layout_marginTop='80%h';--顶距\
+                --左:left 右:right 中:center 顶:top 底:bottom\
+                elevation='0dp';--阴影\
+                layout_width='fill';--宽度\
+                layout_height='8%h';--高度\
+                CardBackgroundColor='#ffffffff';--颜色\
+                radius='';--圆角\
+                id='aa13';\
+                {\
+                  TextView;--文本控件\
+                  layout_width='fill';--文本宽度\
+                  layout_height='fill';--文本高度\
+                  gravity='top|left';--重力属性\
+                  textColor='#000000';--文字颜色\
+                  text='腾讯微云';--显示的文字\
+                  textSize='17dp';--文字大小\
+                  layout_margin='8dp';--边距\
+                  id='aa13';\
+                };\
+                {\
+                  TextView;--文本控件\
+                  layout_width='fill';--文本宽度\
+                  layout_height='fill';--文本高度\
+                  gravity='left|center';--重力属性\
+                  textColor='#FF8C8C8C';--文字颜色\
+                  text='部分远程接口文档';--显示的文字\
+                  textSize='11dp';--文字大小\
+                  layout_marginLeft='8dp';--左距\
+                  layout_marginTop='3.7%h';--顶距\
+                  id='aa13';\
+\
+                };\
+                {\
+                  CardView;--卡片控件\
+                  layout_marginRight='54dp';--右距\
+                  layout_gravity='center|right';--重力\
+                  --左:left 右:right 中:center 顶:top 底:bottom\
+                  elevation='0dp';--阴影\
+                  layout_width='33dp';--宽度\
+                  layout_height='33dp';--高度\
+                  CardBackgroundColor='0';--颜色\
+                  radius='';--圆角\
+\
+                  {\
+                    ImageView;--图片控件\
+                    src='http://wp.wadg.pro/view.php/be70e4e11b88293269280265f252435b.png';--图片路径\
+                    layout_width='fill';--图片宽度\
+                    layout_height='fill';--图片高度\
+                    scaleType='fitXY';--图片显示类型\
+                    id='aa13';\
+                  };\
+                };\
+                {\
+                  CardView;--卡片控件\
+                  layout_margin='8dp';--边距\
+                  layout_gravity='center|right';--重力\
+                  --左:left 右:right 中:center 顶:top 底:bottom\
+                  elevation='0dp';--阴影\
+                  layout_width='22dp';--宽度\
+                  layout_height='22dp';--高度\
+                  CardBackgroundColor='0';--颜色\
+                  radius='';--圆角\
+\
+                  {\
+                    ImageView;--图片控件\
+                    src='http://wp.wadg.pro/view.php/332b0971bbe6511ea8cab46f44584e6e.png';--图片路径\
+                    layout_width='fill';--图片宽度\
+                    layout_height='fill';--图片高度\
+                    scaleType='fitXY';--图片显示类型\
+                    id='aa13';\
+                  };\
+                };\
+                {\
+                  CardView;--卡片控件\
+                  layout_margin='';--边距\
+                  layout_gravity='center|bottom';--重力\
+                  --左:left 右:right 中:center 顶:top 底:bottom\
+                  elevation='0dp';--阴影\
+                  layout_width='fill';--宽度\
+                  layout_height='1dp';--高度\
+                  CardBackgroundColor='#f1f3f5';--颜色\
+                  radius='';--圆角\
+                  layout_marginLeft='8dp';--左距\
+                  layout_marginRight='8dp';--右距\
+                };\
+\
+              };\
+              {\
+                CardView;--卡片控件\
+                layout_margin='';--边距\
+                layout_gravity='';--重力\
+                layout_marginTop='88%h';--顶距\
+                --左:left 右:right 中:center 顶:top 底:bottom\
+                elevation='0dp';--阴影\
+                layout_width='fill';--宽度\
+                layout_height='8%h';--高度\
+                CardBackgroundColor='#ffffffff';--颜色\
+                radius='';--圆角\
+                id='a14';\
+                {\
+                  TextView;--文本控件\
+                  layout_width='fill';--文本宽度\
+                  layout_height='fill';--文本高度\
+                  gravity='top|left';--重力属性\
+                  textColor='#000000';--文字颜色\
+                  text='腾讯文档';--显示的文字\
+                  textSize='17dp';--文字大小\
+                  layout_margin='8dp';--边距\
+                  id='a14';\
+                };\
+                {\
+                  TextView;--文本控件\
+                  layout_width='fill';--文本宽度\
+                  layout_height='fill';--文本高度\
+                  gravity='left|center';--重力属性\
+                  textColor='#FF8C8C8C';--文字颜色\
+                  text='信息流制作提供';--显示的文字\
+                  textSize='11dp';--文字大小\
+                  layout_marginLeft='8dp';--左距\
+                  layout_marginTop='3.7%h';--顶距\
+                  id='a14';\
+\
+                };\
+\
+                {\
+                  CardView;--卡片控件\
+                  layout_marginRight='54dp';--右距\
+                  layout_gravity='center|right';--重力\
+                  --左:left 右:right 中:center 顶:top 底:bottom\
+                  elevation='0dp';--阴影\
+                  layout_width='33dp';--宽度\
+                  layout_height='33dp';--高度\
+                  CardBackgroundColor='0';--颜色\
+                  radius='';--圆角\
+\
+                  {\
+                    ImageView;--图片控件\
+                    src='http://wp.wadg.pro/view.php/be70e4e11b88293269280265f252435b.png';--图片路径\
+                    layout_width='fill';--图片宽度\
+                    layout_height='fill';--图片高度\
+                    scaleType='fitXY';--图片显示类型\
+                    id='a14';\
+                  };\
+                };\
+                {\
+                  CardView;--卡片控件\
+                  layout_margin='8dp';--边距\
+                  layout_gravity='center|right';--重力\
+                  --左:left 右:right 中:center 顶:top 底:bottom\
+                  elevation='0dp';--阴影\
+                  layout_width='22dp';--宽度\
+                  layout_height='22dp';--高度\
+                  CardBackgroundColor='0';--颜色\
+                  radius='';--圆角\
+\
+                  {\
+                    ImageView;--图片控件\
+                    src='http://wp.wadg.pro/view.php/332b0971bbe6511ea8cab46f44584e6e.png';--图片路径\
+                    layout_width='fill';--图片宽度\
+                    layout_height='fill';--图片高度\
+                    scaleType='fitXY';--图片显示类型\
+                    id='a13';\
+                  };\
+                };\
+                {\
+                  CardView;--卡片控件\
+                  layout_margin='';--边距\
+                  layout_gravity='center|bottom';--重力\
+                  --左:left 右:right 中:center 顶:top 底:bottom\
+                  elevation='0dp';--阴影\
+                  layout_width='fill';--宽度\
+                  layout_height='1dp';--高度\
+                  CardBackgroundColor='#f1f3f5';--颜色\
+                  radius='';--圆角\
+                  layout_marginLeft='8dp';--左距\
+                  layout_marginRight='8dp';--右距\
+                };\
+\
+              };\
+              {\
+                CardView;--卡片控件\
+                layout_margin='';--边距\
+                layout_gravity='';--重力\
+                layout_marginTop='96%h';--顶距\
+                --左:left 右:right 中:center 顶:top 底:bottom\
+                elevation='0dp';--阴影\
+                layout_width='fill';--宽度\
+                layout_height='8%h';--高度\
+                CardBackgroundColor='#ffffffff';--颜色\
+                radius='';--圆角\
+                id='a15';\
+                {\
+                  TextView;--文本控件\
+                  layout_width='fill';--文本宽度\
+                  layout_height='fill';--文本高度\
+                  gravity='top|left';--重力属性\
+                  textColor='#000000';--文字颜色\
+                  text='腾讯问卷';--显示的文字\
+                  textSize='17dp';--文字大小\
+                  layout_margin='8dp';--边距\
+                  id='a15';\
+                };\
+                {\
+                  TextView;--文本控件\
+                  layout_width='fill';--文本宽度\
+                  layout_height='fill';--文本高度\
+                  gravity='left|center';--重力属性\
+                  textColor='#FF8C8C8C';--文字颜色\
+                  text='用户数据及反馈';--显示的文字\
+                  textSize='11dp';--文字大小\
+                  layout_marginLeft='8dp';--左距\
+                  layout_marginTop='3.7%h';--顶距\
+                  id='a15';\
+\
+                };\
+                {\
+                  CardView;--卡片控件\
+                  layout_marginRight='54dp';--右距\
+                  layout_gravity='center|right';--重力\
+                  --左:left 右:right 中:center 顶:top 底:bottom\
+                  elevation='0dp';--阴影\
+                  layout_width='33dp';--宽度\
+                  layout_height='33dp';--高度\
+                  CardBackgroundColor='0';--颜色\
+                  radius='';--圆角\
+\
+                  {\
+                    ImageView;--图片控件\
+                    src='http://wp.wadg.pro/view.php/be70e4e11b88293269280265f252435b.png';--图片路径\
+                    layout_width='fill';--图片宽度\
+                    layout_height='fill';--图片高度\
+                    scaleType='fitXY';--图片显示类型\
+                    id='a15';\
+                  };\
+                };\
+                {\
+                  CardView;--卡片控件\
+                  layout_margin='8dp';--边距\
+                  layout_gravity='center|right';--重力\
+                  --左:left 右:right 中:center 顶:top 底:bottom\
+                  elevation='0dp';--阴影\
+                  layout_width='22dp';--宽度\
+                  layout_height='22dp';--高度\
+                  CardBackgroundColor='0';--颜色\
+                  radius='';--圆角\
+\
+                  {\
+                    ImageView;--图片控件\
+                    src='http://wp.wadg.pro/view.php/332b0971bbe6511ea8cab46f44584e6e.png';--图片路径\
+                    layout_width='fill';--图片宽度\
+                    layout_height='fill';--图片高度\
+                    scaleType='fitXY';--图片显示类型\
+                    id='a15';\
+                  };\
+                };\
+                {\
+                  CardView;--卡片控件\
+                  layout_margin='';--边距\
+                  layout_gravity='center|bottom';--重力\
+                  --左:left 右:right 中:center 顶:top 底:bottom\
+                  elevation='0dp';--阴影\
+                  layout_width='fill';--宽度\
+                  layout_height='1dp';--高度\
+                  CardBackgroundColor='#f1f3f5';--颜色\
+                  radius='';--圆角\
+                  layout_marginLeft='8dp';--左距\
+                  layout_marginRight='8dp';--右距\
+                };\
+\
+              };\
+              {\
+                CardView;--卡片控件\
+                layout_margin='';--边距\
+                layout_gravity='';--重力\
+                layout_marginTop='104%h';--顶距\
+                --左:left 右:right 中:center 顶:top 底:bottom\
+                elevation='0dp';--阴影\
+                layout_width='fill';--宽度\
+                layout_height='8%h';--高度\
+                CardBackgroundColor='#ffffffff';--颜色\
+                radius='';--圆角\
+                id='a16';\
+                {\
+                  TextView;--文本控件\
+                  layout_width='fill';--文本宽度\
+                  layout_height='fill';--文本高度\
+                  gravity='top|left';--重力属性\
+                  textColor='#000000';--文字颜色\
+                  text='今日诗词';--显示的文字\
+                  textSize='17dp';--文字大小\
+                  layout_margin='8dp';--边距\
+                  id='a16';\
+                };\
+                {\
+                  TextView;--文本控件\
+                  layout_width='fill';--文本宽度\
+                  layout_height='fill';--文本高度\
+                  gravity='left|center';--重力属性\
+                  textColor='#FF8C8C8C';--文字颜色\
+                  text='起始页面接口';--显示的文字\
+                  textSize='11dp';--文字大小\
+                  layout_marginLeft='8dp';--左距\
+                  layout_marginTop='3.7%h';--顶距\
+                  id='a16';\
+\
+                };\
+                {\
+                  CardView;--卡片控件\
+                  layout_marginRight='54dp';--右距\
+                  layout_gravity='center|right';--重力\
+                  --左:left 右:right 中:center 顶:top 底:bottom\
+                  elevation='0dp';--阴影\
+                  layout_width='33dp';--宽度\
+                  layout_height='33dp';--高度\
+                  CardBackgroundColor='0';--颜色\
+                  radius='';--圆角\
+\
+                  {\
+                    ImageView;--图片控件\
+                    src='http://wp.wadg.pro/view.php/be70e4e11b88293269280265f252435b.png';--图片路径\
+                    layout_width='fill';--图片宽度\
+                    layout_height='fill';--图片高度\
+                    scaleType='fitXY';--图片显示类型\
+                    id='a16';\
+                  };\
+                };\
+                {\
+                  CardView;--卡片控件\
+                  layout_margin='8dp';--边距\
+                  layout_gravity='center|right';--重力\
+                  --左:left 右:right 中:center 顶:top 底:bottom\
+                  elevation='0dp';--阴影\
+                  layout_width='22dp';--宽度\
+                  layout_height='22dp';--高度\
+                  CardBackgroundColor='0';--颜色\
+                  radius='';--圆角\
+\
+                  {\
+                    ImageView;--图片控件\
+                    src='http://wp.wadg.pro/view.php/332b0971bbe6511ea8cab46f44584e6e.png';--图片路径\
+                    layout_width='fill';--图片宽度\
+                    layout_height='fill';--图片高度\
+                    scaleType='fitXY';--图片显示类型\
+                    id='a16';\
+                  };\
+                };\
+                {\
+                  CardView;--卡片控件\
+                  layout_margin='';--边距\
+                  layout_gravity='center|bottom';--重力\
+                  --左:left 右:right 中:center 顶:top 底:bottom\
+                  elevation='0dp';--阴影\
+                  layout_width='fill';--宽度\
+                  layout_height='1dp';--高度\
+                  CardBackgroundColor='#f1f3f5';--颜色\
+                  radius='';--圆角\
+                  layout_marginLeft='8dp';--左距\
+                  layout_marginRight='8dp';--右距\
+                };\
+\
+              };\
+              {\
+                CardView;--卡片控件\
+                layout_margin='';--边距\
+                layout_gravity='';--重力\
+                layout_marginTop='112%h';--顶距\
+                --左:left 右:right 中:center 顶:top 底:bottom\
+                elevation='0dp';--阴影\
+                layout_width='fill';--宽度\
+                layout_height='8%h';--高度\
+                CardBackgroundColor='#ffffffff';--颜色\
+                radius='';--圆角\
+                id='a17';\
+                {\
+                  TextView;--文本控件\
+                  layout_width='fill';--文本宽度\
+                  layout_height='fill';--文本高度\
+                  gravity='top|left';--重力属性\
+                  textColor='#000000';--文字颜色\
+                  text='即时设计JsDesign';--显示的文字\
+                  textSize='17dp';--文字大小\
+                  layout_margin='8dp';--边距\
+                  id='a17';\
+                };\
+                {\
+                  TextView;--文本控件\
+                  layout_width='fill';--文本宽度\
+                  layout_height='fill';--文本高度\
+                  gravity='left|center';--重力属性\
+                  textColor='#FF8C8C8C';--文字颜色\
+                  text='为原生中文用户而生的专业UI设计平台';--显示的文字\
+                  textSize='11dp';--文字大小\
+                  layout_marginLeft='8dp';--左距\
+                  layout_marginTop='3.7%h';--顶距\
+                  id='a17';\
+\
+                };\
+                {\
+                  CardView;--卡片控件\
+                  layout_marginRight='54dp';--右距\
+                  layout_gravity='center|right';--重力\
+                  --左:left 右:right 中:center 顶:top 底:bottom\
+                  elevation='0dp';--阴影\
+                  layout_width='33dp';--宽度\
+                  layout_height='33dp';--高度\
+                  CardBackgroundColor='0';--颜色\
+                  radius='';--圆角\
+\
+                  {\
+                    ImageView;--图片控件\
+                    src='http://wp.wadg.pro/view.php/be70e4e11b88293269280265f252435b.png';--图片路径\
+                    layout_width='fill';--图片宽度\
+                    layout_height='fill';--图片高度\
+                    scaleType='fitXY';--图片显示类型\
+                    id='a17';\
+                  };\
+                };\
+                {\
+                  CardView;--卡片控件\
+                  layout_margin='8dp';--边距\
+                  layout_gravity='center|right';--重力\
+                  --左:left 右:right 中:center 顶:top 底:bottom\
+                  elevation='0dp';--阴影\
+                  layout_width='22dp';--宽度\
+                  layout_height='22dp';--高度\
+                  CardBackgroundColor='0';--颜色\
+                  radius='';--圆角\
+\
+                  {\
+                    ImageView;--图片控件\
+                    src='http://wp.wadg.pro/view.php/332b0971bbe6511ea8cab46f44584e6e.png';--图片路径\
+                    layout_width='fill';--图片宽度\
+                    layout_height='fill';--图片高度\
+                    scaleType='fitXY';--图片显示类型\
+                    id='a17';\
+                  };\
+\
+\
+                };\
+                {\
+                  CardView;--卡片控件\
+                  layout_margin='';--边距\
+                  layout_gravity='center|bottom';--重力\
+                  --左:left 右:right 中:center 顶:top 底:bottom\
+                  elevation='0dp';--阴影\
+                  layout_width='fill';--宽度\
+                  layout_height='1dp';--高度\
+                  CardBackgroundColor='#f1f3f5';--颜色\
+                  radius='';--圆角\
+                  layout_marginLeft='8dp';--左距\
+                  layout_marginRight='8dp';--右距\
+                };\
+\
+              };\
+              {\
+                CardView;--卡片控件\
+                layout_margin='';--边距\
+                layout_gravity='';--重力\
+                layout_marginTop='120%h';--顶距\
+                --左:left 右:right 中:center 顶:top 底:bottom\
+                elevation='0dp';--阴影\
+                layout_width='fill';--宽度\
+                layout_height='8%h';--高度\
+                CardBackgroundColor='#ffffffff';--颜色\
+                radius='';--圆角\
+                id='xxj2';\
+                {\
+                  TextView;--文本控件\
+                  layout_width='fill';--文本宽度\
+                  layout_height='fill';--文本高度\
+                  gravity='top|left';--重力属性\
+                  textColor='#000000';--文字颜色\
+                  text='酷安Coolapk';--显示的文字\
+                  textSize='17dp';--文字大小\
+                  layout_margin='8dp';--边距\
+                  id='xxj2';\
+                };\
+                {\
+                  TextView;--文本控件\
+                  layout_width='fill';--文本宽度\
+                  layout_height='fill';--文本高度\
+                  gravity='left|center';--重力属性\
+                  textColor='#FF8C8C8C';--文字颜色\
+                  text='发现科技新生活';--显示的文字\
+                  textSize='11dp';--文字大小\
+                  layout_marginLeft='8dp';--左距\
+                  layout_marginTop='3.7%h';--顶距\
+                  id='xxj2';\
+\
+                };\
+                {\
+                  CardView;--卡片控件\
+                  layout_marginRight='54dp';--右距\
+                  layout_gravity='center|right';--重力\
+                  --左:left 右:right 中:center 顶:top 底:bottom\
+                  elevation='0dp';--阴影\
+                  layout_width='33dp';--宽度\
+                  layout_height='33dp';--高度\
+                  CardBackgroundColor='0';--颜色\
+                  radius='';--圆角\
+\
+                  {\
+                    ImageView;--图片控件\
+                    src='http://wp.wadg.pro/view.php/be70e4e11b88293269280265f252435b.png';--图片路径\
+                    layout_width='fill';--图片宽度\
+                    layout_height='fill';--图片高度\
+                    scaleType='fitXY';--图片显示类型\
+                    id='xxj2';\
+                  };\
+                };\
+                {\
+                  CardView;--卡片控件\
+                  layout_margin='8dp';--边距\
+                  layout_gravity='center|right';--重力\
+                  --左:left 右:right 中:center 顶:top 底:bottom\
+                  elevation='0dp';--阴影\
+                  layout_width='22dp';--宽度\
+                  layout_height='22dp';--高度\
+                  CardBackgroundColor='0';--颜色\
+                  radius='';--圆角\
+\
+                  {\
+                    ImageView;--图片控件\
+                    src='http://wp.wadg.pro/view.php/332b0971bbe6511ea8cab46f44584e6e.png';--图片路径\
+                    layout_width='fill';--图片宽度\
+                    layout_height='fill';--图片高度\
+                    scaleType='fitXY';--图片显示类型\
+                    id='xxj2';\
+                  };\
+\
+\
+                };\
+                {\
+                  CardView;--卡片控件\
+                  layout_margin='';--边距\
+                  layout_gravity='center|bottom';--重力\
+                  --左:left 右:right 中:center 顶:top 底:bottom\
+                  elevation='0dp';--阴影\
+                  layout_width='fill';--宽度\
+                  layout_height='1dp';--高度\
+                  CardBackgroundColor='#f1f3f5';--颜色\
+                  radius='';--圆角\
+                  layout_marginLeft='8dp';--左距\
+                  layout_marginRight='8dp';--右距\
+                };\
+\
+              };\
+              {\
+                CardView;--卡片控件\
+                layout_margin='';--边距\
+                layout_gravity='';--重力\
+                layout_marginTop='128%h';--顶距\
+                --左:left 右:right 中:center 顶:top 底:bottom\
+                elevation='0dp';--阴影\
+                layout_width='fill';--宽度\
+                layout_height='8%h';--高度\
+                CardBackgroundColor='#ffffffff';--颜色\
+                radius='';--圆角\
+                id='xj1';\
+                {\
+                  TextView;--文本控件\
+                  layout_width='fill';--文本宽度\
+                  layout_height='fill';--文本高度\
+                  gravity='top|left';--重力属性\
+                  textColor='#000000';--文字颜色\
+                  text='其他功能支持或方案支持';--显示的文字\
+                  textSize='17dp';--文字大小\
+                  layout_margin='8dp';--边距\
+                  id='xj1';\
+                };\
+                {\
+                  TextView;--文本控件\
+                  layout_width='fill';--文本宽度\
+                  layout_height='fill';--文本高度\
+                  gravity='left|center';--重力属性\
+                  textColor='#FF8C8C8C';--文字颜色\
+                  text='轻触查看更多';--显示的文字\
+                  textSize='11dp';--文字大小\
+                  layout_marginLeft='8dp';--左距\
+                  layout_marginTop='3.7%h';--顶距\
+                  id='xj1';\
+\
+                };\
+                {\
+                  CardView;--卡片控件\
+                  layout_marginRight='54dp';--右距\
+                  layout_gravity='center|right';--重力\
+                  --左:left 右:right 中:center 顶:top 底:bottom\
+                  elevation='0dp';--阴影\
+                  layout_width='33dp';--宽度\
+                  layout_height='33dp';--高度\
+                  CardBackgroundColor='0';--颜色\
+                  radius='';--圆角\
+\
+                  {\
+                    ImageView;--图片控件\
+                    src='http://wp.wadg.pro/view.php/e353b231d2f5373f15742069d0b07797.png';--图片路径\
+                    layout_width='fill';--图片宽度\
+                    layout_height='fill';--图片高度\
+                    scaleType='fitXY';--图片显示类型\
+                    id='xj1';\
+                  };\
+                };\
+                {\
+                  CardView;--卡片控件\
+                  layout_margin='8dp';--边距\
+                  layout_gravity='center|right';--重力\
+                  --左:left 右:right 中:center 顶:top 底:bottom\
+                  elevation='0dp';--阴影\
+                  layout_width='22dp';--宽度\
+                  layout_height='22dp';--高度\
+                  CardBackgroundColor='0';--颜色\
+                  radius='';--圆角\
+\
+                  {\
+                    ImageView;--图片控件\
+                    src='http://wp.wadg.pro/view.php/332b0971bbe6511ea8cab46f44584e6e.png';--图片路径\
+                    layout_width='fill';--图片宽度\
+                    layout_height='fill';--图片高度\
+                    scaleType='fitXY';--图片显示类型\
+                    id='xj1';\
+                  };\
+\
+                  {\
+                    CardView;--卡片控件\
+                    layout_margin='';--边距\
+                    layout_gravity='center|bottom';--重力\
+                    --左:left 右:right 中:center 顶:top 底:bottom\
+                    elevation='0dp';--阴影\
+                    layout_width='fill';--宽度\
+                    layout_height='1dp';--高度\
+                    CardBackgroundColor='#f1f3f5';--颜色\
+                    radius='';--圆角\
+                    layout_marginLeft='8dp';--左距\
+                    layout_marginRight='8dp';--右距\
+                  };\
+                };\
+              };\
+            };\
+\
+            {\
+              TextView;--文本控件\
+              layout_width='fill';--文本宽度\
+              layout_height='3.5%h';--文本高度\
+              gravity='center|left';--重力属性\
+              textColor='#FF8C8C8C';--文字颜色\
+              text='关于多文言Duo高级功能和付费问题';--显示的文字\
+              textSize='14dp';--文字大小\
+              layout_margin='';--边距\
+              layout_marginLeft='17dp';--左距\
+            };\
+            {\
+              CardView;--卡片控件\
+              layout_margin='';--边距\
+              layout_marginLeft='13dp';--左距\
+              layout_marginRight='13dp';--右距\
+              layout_marginTop='';--顶距\
+              layout_gravity='center';--重力\
+              --左:left 右:right 中:center 顶:top 底:bottom\
+              elevation='0dp';--阴影\
+              layout_width='fill';--宽度\
+              layout_height='wrap';--高度\
+              CardBackgroundColor='#ffffffff';--颜色\
+              radius='17dp';--圆角\
+\
+              ------------\
+              {\
+                CardView;--卡片控件\
+                layout_margin='';--边距\
+                layout_gravity='';--重力\
+                layout_marginTop='';--顶距\
+                --左:left 右:right 中:center 顶:top 底:bottom\
+                elevation='0dp';--阴影\
+                layout_width='fill';--宽度\
+                layout_height='wrap';--高度\
+                CardBackgroundColor='#ffffffff';--颜色\
+                radius='';--圆角\
+                id='a18';\
+                {\
+                  TextView;--文本控件\
+                  layout_width='fill';--文本宽度\
+                  layout_height='fill';--文本高度\
+                  gravity='top|left';--重力属性\
+                  textColor='#000000';--文字颜色\
+                  text='多文言Duo提供了原创文档，所有原创文档均为多文言Duo版权所有，多文言Duo初衷不是文档付费，但是，出于对原创文档的保护，我们对高级功能添加了密钥，您需要获得许可后使用，您只需点击侧滑栏-账户总控-Duo账户管理，注册后登录即可安装我们为您提供的密钥安装程序，安装密钥后，重启多文言Duo，所有高级功能您都可以在规定范围内正常使用，普通功能页面水印也会清除，如果您想支持多文言Duo的发展，希望多文言Duo提供更好的服务，您可以侧滑栏-捐赠支持。如果您想了解多文言Duo程序运行源码，页面布局，您可以点击侧滑栏-捐赠支持。如果您有好的功能，建议，方案，或者资料，您可以以任意方式向我们反馈，我们对此感谢。';--显示的文字\
+                  textSize='17dp';--文字大小\
+                  layout_margin='18dp';--边距\
+                  id='a18';\
+                };\
+\
+\
+              };\
+\
+\
+\
+            };\
+\
+            ------------\
+\
+\
+\
+\
+\
+\
+\
+\
+            {\
+              LinearLayout;\
+              orientation=\"vertical\";\
+              layout_width=\"fill\";\
+              layout_height=\"match_parent\";\
+              layout_marginLeft=\"\";\
+              {\
+                TextView;--文本控件\
+                layout_width='fill';--文本宽度\
+                layout_height='3.5%h';--文本高度\
+                gravity='center|left';--重力属性\
+                textColor='#FF8C8C8C';--文字颜色\
+                text='联系彼此';--显示的文字\
+                textSize='14dp';--文字大小\
+                layout_margin='';--边距\
+                layout_marginLeft='17dp';--左距\
+              };\
+              {\
+                CardView;--卡片控件\
+                layout_margin='';--边距\
+                layout_marginLeft='13dp';--左距\
+                layout_marginRight='13dp';--右距\
+                layout_marginTop='';--顶距\
+                layout_gravity='center';--重力\
+                --左:left 右:right 中:center 顶:top 底:bottom\
+                elevation='0dp';--阴影\
+                layout_width='fill';--宽度\
+                layout_height='48%h';--高度\
+                CardBackgroundColor='#ffffffff';--颜色\
+                radius='17dp';--圆角\
+\
+                {\
+                  CardView;--卡片控件\
+                  layout_margin='';--边距\
+                  layout_gravity='';--重力\
+                  layout_marginTop='';--顶距\
+                  --左:left 右:right 中:center 顶:top 底:bottom\
+                  elevation='0dp';--阴影\
+                  layout_width='fill';--宽度\
+                  layout_height='8%h';--高度\
+                  CardBackgroundColor='#ffffffff';--颜色\
+                  radius='';--圆角\
+                  id='a21';\
+                  {\
+                    TextView;--文本控件\
+                    layout_width='fill';--文本宽度\
+                    layout_height='fill';--文本高度\
+                    gravity='top|left';--重力属性\
+                    textColor='#000000';--文字颜色\
+                    text='使用邮箱联系管理人员';--显示的文字\
+                    textSize='17dp';--文字大小\
+                    layout_margin='8dp';--边距\
+                    id='a21';\
+                  };\
+                  {\
+                    TextView;--文本控件\
+                    layout_width='fill';--文本宽度\
+                    layout_height='fill';--文本高度\
+                    gravity='left|center';--重力属性\
+                    textColor='#FF8C8C8C';--文字颜色\
+                    text='将跳转邮箱页面';--显示的文字\
+                    textSize='11dp';--文字大小\
+                    layout_marginLeft='8dp';--左距\
+                    layout_marginTop='3.7%h';--顶距\
+                    id='a21';\
+\
+                  };\
+                  {\
+                    CardView;--卡片控件\
+                    layout_marginRight='54dp';--右距\
+                    layout_gravity='center|right';--重力\
+                    --左:left 右:right 中:center 顶:top 底:bottom\
+                    elevation='0dp';--阴影\
+                    layout_width='35dp';--宽度\
+                    layout_height='35dp';--高度\
+                    CardBackgroundColor='0';--颜色\
+                    radius='';--圆角\
+\
+                    {\
+                      ImageView;--图片控件\
+                      src='http://wp.wadg.pro/view.php/db4180e1a42b9b6a5567510a5a5994ab.png';--图片路径\
+                      layout_width='fill';--图片宽度\
+                      layout_height='fill';--图片高度\
+                      scaleType='fitXY';--图片显示类型\
+                      id='xj2';\
+                    };\
+                  };\
+                  {\
+                    CardView;--卡片控件\
+                    layout_margin='8dp';--边距\
+                    layout_gravity='center|right';--重力\
+                    --左:left 右:right 中:center 顶:top 底:bottom\
+                    elevation='0dp';--阴影\
+                    layout_width='22dp';--宽度\
+                    layout_height='22dp';--高度\
+                    CardBackgroundColor='0';--颜色\
+                    radius='';--圆角\
+\
+                    {\
+                      ImageView;--图片控件\
+                      src='http://wp.wadg.pro/view.php/332b0971bbe6511ea8cab46f44584e6e.png';--图片路径\
+                      layout_width='fill';--图片宽度\
+                      layout_height='fill';--图片高度\
+                      scaleType='fitXY';--图片显示类型\
+                      id='a21';\
+                    };\
+                  };\
+                  {\
+                    CardView;--卡片控件\
+                    layout_margin='';--边距\
+                    layout_gravity='center|bottom';--重力\
+                    --左:left 右:right 中:center 顶:top 底:bottom\
+                    elevation='0dp';--阴影\
+                    layout_width='fill';--宽度\
+                    layout_height='1dp';--高度\
+                    CardBackgroundColor='#f1f3f5';--颜色\
+                    radius='';--圆角\
+                    layout_marginLeft='8dp';--左距\
+                    layout_marginRight='8dp';--右距\
+                  };\
+\
+                };\
+                ------------\
+                {\
+                  CardView;--卡片控件\
+                  layout_margin='';--边距\
+                  layout_gravity='';--重力\
+                  layout_marginTop='8%h';--顶距\
+                  --左:left 右:right 中:center 顶:top 底:bottom\
+                  elevation='0dp';--阴影\
+                  layout_width='fill';--宽度\
+                  layout_height='8%h';--高度\
+                  CardBackgroundColor='#ffffffff';--颜色\
+                  radius='';--圆角\
+                  id='a22';\
+                  {\
+                    TextView;--文本控件\
+                    layout_width='fill';--文本宽度\
+                    layout_height='fill';--文本高度\
+                    gravity='top|left';--重力属性\
+                    textColor='#000000';--文字颜色\
+                    text='使用QQ联系服务人员';--显示的文字\
+                    textSize='17dp';--文字大小\
+                    layout_margin='8dp';--边距\
+                    id='a22';\
+                  };\
+                  {\
+                    TextView;--文本控件\
+                    layout_width='fill';--文本宽度\
+                    layout_height='fill';--文本高度\
+                    gravity='left|center';--重力属性\
+                    textColor='#FF8C8C8C';--文字颜色\
+                    text='请确保您的QQ可用';--显示的文字\
+                    textSize='11dp';--文字大小\
+                    layout_marginLeft='8dp';--左距\
+                    layout_marginTop='3.7%h';--顶距\
+                    id='a22';\
+\
+                  };\
+                  {\
+                    CardView;--卡片控件\
+                    layout_marginRight='54dp';--右距\
+                    layout_gravity='center|right';--重力\
+                    --左:left 右:right 中:center 顶:top 底:bottom\
+                    elevation='0dp';--阴影\
+                    layout_width='33dp';--宽度\
+                    layout_height='33dp';--高度\
+                    CardBackgroundColor='0';--颜色\
+                    radius='';--圆角\
+\
+                    {\
+                      ImageView;--图片控件\
+                      src='http://wp.wadg.pro/view.php/310626329ebb7d12203a7fcba3cc2a73.png';--图片路径\
+                      layout_width='fill';--图片宽度\
+                      layout_height='fill';--图片高度\
+                      scaleType='fitXY';--图片显示类型\
+                      id='a22';\
+                    };\
+                  };\
+                  {\
+                    CardView;--卡片控件\
+                    layout_margin='8dp';--边距\
+                    layout_gravity='center|right';--重力\
+                    --左:left 右:right 中:center 顶:top 底:bottom\
+                    elevation='0dp';--阴影\
+                    layout_width='22dp';--宽度\
+                    layout_height='22dp';--高度\
+                    CardBackgroundColor='0';--颜色\
+                    radius='';--圆角\
+\
+                    {\
+                      ImageView;--图片控件\
+                      src='http://wp.wadg.pro/view.php/332b0971bbe6511ea8cab46f44584e6e.png';--图片路径\
+                      layout_width='fill';--图片宽度\
+                      layout_height='fill';--图片高度\
+                      scaleType='fitXY';--图片显示类型\
+                      id='a22';\
+                    };\
+                  };\
+                  {\
+                    CardView;--卡片控件\
+                    layout_margin='';--边距\
+                    layout_gravity='center|bottom';--重力\
+                    --左:left 右:right 中:center 顶:top 底:bottom\
+                    elevation='0dp';--阴影\
+                    layout_width='fill';--宽度\
+                    layout_height='1dp';--高度\
+                    CardBackgroundColor='#f1f3f5';--颜色\
+                    radius='';--圆角\
+                    layout_marginLeft='8dp';--左距\
+                    layout_marginRight='8dp';--右距\
+                  };\
+\
+                };\
+                ----------\
+                {\
+                  CardView;--卡片控件\
+                  layout_margin='';--边距\
+                  layout_gravity='';--重力\
+                  layout_marginTop='16%h';--顶距\
+                  --左:left 右:right 中:center 顶:top 底:bottom\
+                  elevation='0dp';--阴影\
+                  layout_width='fill';--宽度\
+                  layout_height='8%h';--高度\
+                  CardBackgroundColor='#ffffffff';--颜色\
+                  radius='';--圆角\
+                  id='a23';\
+                  {\
+                    TextView;--文本控件\
+                    layout_width='fill';--文本宽度\
+                    layout_height='fill';--文本高度\
+                    gravity='top|left';--重力属性\
+                    textColor='#000000';--文字颜色\
+                    text='访问多社区平台反馈交流';--显示的文字\
+                    textSize='17dp';--文字大小\
+                    layout_margin='8dp';--边距\
+                    id='a23';\
+                  };\
+                  {\
+                    TextView;--文本控件\
+                    layout_width='fill';--文本宽度\
+                    layout_height='fill';--文本高度\
+                    gravity='left|center';--重力属性\
+                    textColor='#FF8C8C8C';--文字颜色\
+                    text='点击了解如何访问';--显示的文字\
+                    textSize='11dp';--文字大小\
+                    layout_marginLeft='8dp';--左距\
+                    layout_marginTop='3.7%h';--顶距\
+                    id='a23';\
+\
+                  };\
+                  {\
+                    CardView;--卡片控件\
+                    layout_marginRight='52dp';--右距\
+                    layout_gravity='center|right';--重力\
+                    --左:left 右:right 中:center 顶:top 底:bottom\
+                    elevation='0dp';--阴影\
+                    layout_width='30dp';--宽度\
+                    layout_height='30dp';--高度\
+                    CardBackgroundColor='0';--颜色\
+                    radius='';--圆角\
+\
+                    {\
+                      ImageView;--图片控件\
+                      src='http://wp.wadg.pro/view.php/85d48f2854a8973e5a4e57303b34c410.png';--图片路径\
+                      layout_width='fill';--图片宽度\
+                      layout_height='fill';--图片高度\
+                      scaleType='fitXY';--图片显示类型\
+                      id='a23';\
+                    };\
+                  };\
+                  {\
+                    CardView;--卡片控件\
+                    layout_margin='8dp';--边距\
+                    layout_gravity='center|right';--重力\
+                    --左:left 右:right 中:center 顶:top 底:bottom\
+                    elevation='0dp';--阴影\
+                    layout_width='22dp';--宽度\
+                    layout_height='22dp';--高度\
+                    CardBackgroundColor='0';--颜色\
+                    radius='';--圆角\
+\
+                    {\
+                      ImageView;--图片控件\
+                      src='http://wp.wadg.pro/view.php/332b0971bbe6511ea8cab46f44584e6e.png';--图片路径\
+                      layout_width='fill';--图片宽度\
+                      layout_height='fill';--图片高度\
+                      scaleType='fitXY';--图片显示类型\
+                      id='a23';\
+                    };\
+                  };\
+                  {\
+                    CardView;--卡片控件\
+                    layout_margin='';--边距\
+                    layout_gravity='center|bottom';--重力\
+                    --左:left 右:right 中:center 顶:top 底:bottom\
+                    elevation='0dp';--阴影\
+                    layout_width='fill';--宽度\
+                    layout_height='1dp';--高度\
+                    CardBackgroundColor='#f1f3f5';--颜色\
+                    radius='';--圆角\
+                    layout_marginLeft='8dp';--左距\
+                    layout_marginRight='8dp';--右距\
+                  };\
+\
+                };\
+                ----------\
+                {\
+                  CardView;--卡片控件\
+                  layout_margin='';--边距\
+                  layout_gravity='';--重力\
+                  layout_marginTop='24%h';--顶距\
+                  --左:left 右:right 中:center 顶:top 底:bottom\
+                  elevation='0dp';--阴影\
+                  layout_width='fill';--宽度\
+                  layout_height='8%h';--高度\
+                  CardBackgroundColor='#ffffffff';--颜色\
+                  radius='';--圆角\
+                  id='a24';\
+                  {\
+                    TextView;--文本控件\
+                    layout_width='fill';--文本宽度\
+                    layout_height='fill';--文本高度\
+                    gravity='top|left';--重力属性\
+                    textColor='#000000';--文字颜色\
+                    text='完成反馈问卷';--显示的文字\
+                    textSize='17dp';--文字大小\
+                    layout_margin='8dp';--边距\
+                    id='a24';\
+                  };\
+                  {\
+                    TextView;--文本控件\
+                    layout_width='fill';--文本宽度\
+                    layout_height='fill';--文本高度\
+                    gravity='left|center';--重力属性\
+                    textColor='#FF8C8C8C';--文字颜色\
+                    text='我们为您设计了一套反馈问卷帮您更方便地反馈';--显示的文字\
+                    textSize='11dp';--文字大小\
+                    layout_marginLeft='8dp';--左距\
+                    layout_marginTop='3.7%h';--顶距\
+                    id='a24';\
+\
+                  };\
+                  {\
+                    CardView;--卡片控件\
+                    layout_marginRight='54dp';--右距\
+                    layout_gravity='center|right';--重力\
+                    --左:left 右:right 中:center 顶:top 底:bottom\
+                    elevation='0dp';--阴影\
+                    layout_width='33dp';--宽度\
+                    layout_height='33dp';--高度\
+                    CardBackgroundColor='0';--颜色\
+                    radius='';--圆角\
+\
+                    {\
+                      ImageView;--图片控件\
+                      src='http://wp.wadg.pro/view.php/27a1b1b56d951e3c7aff00a76660d8f1.png';--图片路径\
+                      layout_width='fill';--图片宽度\
+                      layout_height='fill';--图片高度\
+                      scaleType='fitXY';--图片显示类型\
+                      id='a24';\
+                    };\
+                  };\
+                  {\
+                    CardView;--卡片控件\
+                    layout_margin='8dp';--边距\
+                    layout_gravity='center|right';--重力\
+                    --左:left 右:right 中:center 顶:top 底:bottom\
+                    elevation='0dp';--阴影\
+                    layout_width='22dp';--宽度\
+                    layout_height='22dp';--高度\
+                    CardBackgroundColor='0';--颜色\
+                    radius='';--圆角\
+\
+                    {\
+                      ImageView;--图片控件\
+                      src='http://wp.wadg.pro/view.php/332b0971bbe6511ea8cab46f44584e6e.png';--图片路径\
+                      layout_width='fill';--图片宽度\
+                      layout_height='fill';--图片高度\
+                      scaleType='fitXY';--图片显示类型\
+                      id='a24';\
+                    };\
+\
+                  };\
+                  {\
+                    CardView;--卡片控件\
+                    layout_margin='';--边距\
+                    layout_gravity='center|bottom';--重力\
+                    --左:left 右:right 中:center 顶:top 底:bottom\
+                    elevation='0dp';--阴影\
+                    layout_width='fill';--宽度\
+                    layout_height='1dp';--高度\
+                    CardBackgroundColor='#f1f3f5';--颜色\
+                    radius='';--圆角\
+                    layout_marginLeft='8dp';--左距\
+                    layout_marginRight='8dp';--右距\
+                  };\
+                };\
+                {\
+                  CardView;--卡片控件\
+                  layout_margin='';--边距\
+                  layout_gravity='';--重力\
+                  layout_marginTop='32%h';--顶距\
+                  --左:left 右:right 中:center 顶:top 底:bottom\
+                  elevation='0dp';--阴影\
+                  layout_width='fill';--宽度\
+                  layout_height='8%h';--高度\
+                  CardBackgroundColor='#ffffffff';--颜色\
+                  radius='';--圆角\
+                  id='xj4';\
+                  {\
+                    TextView;--文本控件\
+                    layout_width='fill';--文本宽度\
+                    layout_height='fill';--文本高度\
+                    gravity='top|left';--重力属性\
+                    textColor='#000000';--文字颜色\
+                    text='进入多文言DuoQQ群聊';--显示的文字\
+                    textSize='17dp';--文字大小\
+                    layout_margin='8dp';--边距\
+                    id='xj4';\
+                  };\
+                  {\
+                    TextView;--文本控件\
+                    layout_width='fill';--文本宽度\
+                    layout_height='fill';--文本高度\
+                    gravity='left|center';--重力属性\
+                    textColor='#FF8C8C8C';--文字颜色\
+                    text='和大家一起交流学习';--显示的文字\
+                    textSize='11dp';--文字大小\
+                    layout_marginLeft='8dp';--左距\
+                    layout_marginTop='3.7%h';--顶距\
+                    id='xj4';\
+\
+                  };\
+                  {\
+                    CardView;--卡片控件\
+                    layout_marginRight='54dp';--右距\
+                    layout_gravity='center|right';--重力\
+                    --左:left 右:right 中:center 顶:top 底:bottom\
+                    elevation='0dp';--阴影\
+                    layout_width='33dp';--宽度\
+                    layout_height='33dp';--高度\
+                    CardBackgroundColor='0';--颜色\
+                    radius='';--圆角\
+\
+                    {\
+                      ImageView;--图片控件\
+                      src='http://wp.wadg.pro/view.php/310626329ebb7d12203a7fcba3cc2a73.png';--图片路径\
+                      layout_width='fill';--图片宽度\
+                      layout_height='fill';--图片高度\
+                      scaleType='fitXY';--图片显示类型\
+                      id='xj4';\
+                    };\
+                  };\
+                  {\
+                    CardView;--卡片控件\
+                    layout_margin='8dp';--边距\
+                    layout_gravity='center|right';--重力\
+                    --左:left 右:right 中:center 顶:top 底:bottom\
+                    elevation='0dp';--阴影\
+                    layout_width='22dp';--宽度\
+                    layout_height='22dp';--高度\
+                    CardBackgroundColor='0';--颜色\
+                    radius='';--圆角\
+\
+                    {\
+                      ImageView;--图片控件\
+                      src='http://wp.wadg.pro/view.php/332b0971bbe6511ea8cab46f44584e6e.png';--图片路径\
+                      layout_width='fill';--图片宽度\
+                      layout_height='fill';--图片高度\
+                      scaleType='fitXY';--图片显示类型\
+                      id='xj4';\
+                    };\
+\
+                  };\
+                  {\
+                    CardView;--卡片控件\
+                    layout_margin='';--边距\
+                    layout_gravity='center|bottom';--重力\
+                    --左:left 右:right 中:center 顶:top 底:bottom\
+                    elevation='0dp';--阴影\
+                    layout_width='fill';--宽度\
+                    layout_height='1dp';--高度\
+                    CardBackgroundColor='#f1f3f5';--颜色\
+                    radius='';--圆角\
+                    layout_marginLeft='8dp';--左距\
+                    layout_marginRight='8dp';--右距\
+                  };\
+                };\
+                {\
+                  CardView;--卡片控件\
+                  layout_margin='';--边距\
+                  layout_gravity='';--重力\
+                  layout_marginTop='40%h';--顶距\
+                  --左:left 右:right 中:center 顶:top 底:bottom\
+                  elevation='0dp';--阴影\
+                  layout_width='fill';--宽度\
+                  layout_height='8%h';--高度\
+                  CardBackgroundColor='#ffffffff';--颜色\
+                  radius='';--圆角\
+                  id='xj3';\
+                  {\
+                    TextView;--文本控件\
+                    layout_width='fill';--文本宽度\
+                    layout_height='fill';--文本高度\
+                    gravity='top|left';--重力属性\
+                    textColor='#000000';--文字颜色\
+                    text='在酷安Coolapk中向我留言';--显示的文字\
+                    textSize='17dp';--文字大小\
+                    layout_margin='8dp';--边距\
+                    id='xj3';\
+                  };\
+                  {\
+                    TextView;--文本控件\
+                    layout_width='fill';--文本宽度\
+                    layout_height='fill';--文本高度\
+                    gravity='left|center';--重力属性\
+                    textColor='#FF8C8C8C';--文字颜色\
+                    text='轻触跳转到酷安Coolapk';--显示的文字\
+                    textSize='11dp';--文字大小\
+                    layout_marginLeft='8dp';--左距\
+                    layout_marginTop='3.7%h';--顶距\
+                    id='xj3';\
+\
+                  };\
+                  {\
+                    CardView;--卡片控件\
+                    layout_marginRight='10dp';--右距\
+                    layout_gravity='center|right';--重力\
+                    --左:left 右:right 中:center 顶:top 底:bottom\
+                    elevation='0dp';--阴影\
+                    layout_width='120dp';--宽度\
+                    layout_height='80dp';--高度\
+                    CardBackgroundColor='0';--颜色\
+                    radius='';--圆角\
+\
+                    {\
+                      ImageView;--图片控件\
+                      src='http://wp.wadg.pro/view.php/66f62423172adfbf24799ebd40b9777d.png';--图片路径\
+                      layout_width='fill';--图片宽度\
+                      layout_height='fill';--图片高度\
+                      scaleType='fitXY';--图片显示类型\
+                      id='xj3';\
+                    };\
+                  };\
+                  {\
+                    CardView;--卡片控件\
+                    layout_margin='8dp';--边距\
+                    layout_gravity='center|right';--重力\
+                    --左:left 右:right 中:center 顶:top 底:bottom\
+                    elevation='0dp';--阴影\
+                    layout_width='22dp';--宽度\
+                    layout_height='22dp';--高度\
+                    CardBackgroundColor='0';--颜色\
+                    radius='';--圆角\
+\
+                    {\
+                      ImageView;--图片控件\
+                      src='http://wp.wadg.pro/view.php/332b0971bbe6511ea8cab46f44584e6e.png';--图片路径\
+                      layout_width='fill';--图片宽度\
+                      layout_height='fill';--图片高度\
+                      scaleType='fitXY';--图片显示类型\
+                      id='xj3';\
+                    };\
+\
+                  };\
+                };\
+              };\
+              {\
+                LinearLayout;\
+                orientation=\"vertical\";\
+                layout_width=\"fill\";\
+                layout_height=\"match_parent\";\
+                layout_marginLeft=\"\";\
+                {\
+                  TextView;--文本控件\
+                  layout_width='fill';--文本宽度\
+                  layout_height='3.5%h';--文本高度\
+                  gravity='center|left';--重力属性\
+                  textColor='#FF8C8C8C';--文字颜色\
+                  text='分享应用';--显示的文字\
+                  textSize='14dp';--文字大小\
+                  layout_margin='';--边距\
+                  layout_marginLeft='17dp';--左距\
+                };\
+                {\
+                  CardView;--卡片控件\
+                  layout_margin='';--边距\
+                  layout_marginLeft='13dp';--左距\
+                  layout_marginRight='13dp';--右距\
+                  layout_marginTop='';--顶距\
+                  layout_gravity='center';--重力\
+                  --左:left 右:right 中:center 顶:top 底:bottom\
+                  elevation='0dp';--阴影\
+                  layout_width='fill';--宽度\
+                  layout_height='8%h';--高度\
+                  CardBackgroundColor='#ffffffff';--颜色\
+                  radius='17dp';--圆角\
+                  {\
+                    CardView;--卡片控件\
+                    layout_margin='';--边距\
+                    layout_gravity='';--重力\
+                    --左:left 右:right 中:center 顶:top 底:bottom\
+                    elevation='0dp';--阴影\
+                    layout_width='fill';--宽度\
+                    layout_height='8%h';--高度\
+                    CardBackgroundColor='#ffffffff';--颜色\
+                    radius='';--圆角\
+                    id='a25';\
+                    {\
+                      TextView;--文本控件\
+                      layout_width='fill';--文本宽度\
+                      layout_height='fill';--文本高度\
+                      gravity='top|left';--重力属性\
+                      textColor='#000000';--文字颜色\
+                      text='分享应用';--显示的文字\
+                      textSize='17dp';--文字大小\
+                      layout_margin='8dp';--边距\
+                      id='a25';\
+                    };\
+                    {\
+                      TextView;--文本控件\
+                      layout_width='fill';--文本宽度\
+                      layout_height='fill';--文本高度\
+                      gravity='left|center';--重力属性\
+                      textColor='#FF8C8C8C';--文字颜色\
+                      text='将这个应用分享给别人';--显示的文字\
+                      textSize='11dp';--文字大小\
+                      layout_marginLeft='8dp';--左距\
+                      layout_marginTop='3.7%h';--顶距\
+                      id='a25';\
+\
+                    };\
+                    {\
+                      CardView;--卡片控件\
+                      layout_margin='8dp';--边距\
+                      layout_gravity='center|right';--重力\
+                      --左:left 右:right 中:center 顶:top 底:bottom\
+                      elevation='0dp';--阴影\
+                      layout_width='22dp';--宽度\
+                      layout_height='22dp';--高度\
+                      CardBackgroundColor='0';--颜色\
+                      radius='';--圆角\
+\
+                      {\
+                        ImageView;--图片控件\
+                        src='http://wp.wadg.pro/view.php/332b0971bbe6511ea8cab46f44584e6e.png';--图片路径\
+                        layout_width='fill';--图片宽度\
+                        layout_height='fill';--图片高度\
+                        scaleType='fitXY';--图片显示类型\
+                        id='a25';\
+                      };\
+                    };\
+\
+\
+                  };\
+\
+\
+\
+                };\
+                {\
+                  LinearLayout;\
+                  orientation=\"vertical\";\
+                  layout_width=\"fill\";\
+                  layout_height=\"match_parent\";\
+                  layout_marginLeft=\"\";\
+                  {\
+                    TextView;--文本控件\
+                    layout_width='fill';--文本宽度\
+                    layout_height='3.5%h';--文本高度\
+                    gravity='center|left';--重力属性\
+                    textColor='#FF8C8C8C';--文字颜色\
+                    text='您需要了解同意以下内容';--显示的文字\
+                    textSize='14dp';--文字大小\
+                    layout_margin='';--边距\
+                    layout_marginLeft='17dp';--左距\
+                  };\
+                  {\
+                    CardView;--卡片控件\
+                    layout_margin='';--边距\
+                    layout_marginLeft='13dp';--左距\
+                    layout_marginRight='13dp';--右距\
+                    layout_marginTop='';--顶距\
+                    layout_gravity='center';--重力\
+                    --左:left 右:right 中:center 顶:top 底:bottom\
+                    elevation='0dp';--阴影\
+                    layout_width='fill';--宽度\
+                    layout_height='32%h';--高度\
+                    CardBackgroundColor='#ffffffff';--颜色\
+                    radius='17dp';--圆角\
+                    {\
+                      CardView;--卡片控件\
+                      layout_margin='';--边距\
+                      layout_gravity='';--重力\
+                      --左:left 右:right 中:center 顶:top 底:bottom\
+                      elevation='0dp';--阴影\
+                      layout_width='fill';--宽度\
+                      layout_height='8%h';--高度\
+                      CardBackgroundColor='#ffffffff';--颜色\
+                      radius='';--圆角\
+                      id='tk4';\
+                      {\
+                        TextView;--文本控件\
+                        layout_width='fill';--文本宽度\
+                        layout_height='fill';--文本高度\
+                        gravity='top|left';--重力属性\
+                        textColor='#000000';--文字颜色\
+                        text='版权说明';--显示的文字\
+                        textSize='17dp';--文字大小\
+                        layout_margin='8dp';--边距\
+                        id='tk4';\
+                      };\
+                      {\
+                        TextView;--文本控件\
+                        layout_width='fill';--文本宽度\
+                        layout_height='fill';--文本高度\
+                        gravity='left|center';--重力属性\
+                        textColor='#FF8C8C8C';--文字颜色\
+                        text='请确保您的行为被我们允许';--显示的文字\
+                        textSize='11dp';--文字大小\
+                        layout_marginLeft='8dp';--左距\
+                        layout_marginTop='3.7%h';--顶距\
+                        id='tk4';\
+\
+                      };\
+                      {\
+                        CardView;--卡片控件\
+                        layout_margin='8dp';--边距\
+                        layout_gravity='center|right';--重力\
+                        --左:left 右:right 中:center 顶:top 底:bottom\
+                        elevation='0dp';--阴影\
+                        layout_width='22dp';--宽度\
+                        layout_height='22dp';--高度\
+                        CardBackgroundColor='0';--颜色\
+                        radius='';--圆角\
+\
+                        {\
+                          ImageView;--图片控件\
+                          src='http://wp.wadg.pro/view.php/332b0971bbe6511ea8cab46f44584e6e.png';--图片路径\
+                          layout_width='fill';--图片宽度\
+                          layout_height='fill';--图片高度\
+                          scaleType='fitXY';--图片显示类型\
+                          id='tk4';\
+                        };\
+                      };\
+                      {\
+                        CardView;--卡片控件\
+                        layout_margin='';--边距\
+                        layout_gravity='center|bottom';--重力\
+                        --左:left 右:right 中:center 顶:top 底:bottom\
+                        elevation='0dp';--阴影\
+                        layout_width='fill';--宽度\
+                        layout_height='1dp';--高度\
+                        CardBackgroundColor='#f1f3f5';--颜色\
+                        radius='';--圆角\
+                        layout_marginLeft='8dp';--左距\
+                        layout_marginRight='8dp';--右距\
+                      };\
+\
+                    };\
+                    {\
+                      CardView;--卡片控件\
+                      layout_margin='';--边距\
+                      layout_gravity='';--重力\
+                      --左:left 右:right 中:center 顶:top 底:bottom\
+                      elevation='0dp';--阴影\
+                      layout_width='fill';--宽度\
+                      layout_height='8%h';--高度\
+\
+                      CardBackgroundColor='#ffffffff';--颜色\
+                      layout_marginTop='8%h';--顶距\
+                      radius='';--圆角\
+                      id='tk3';\
+                      {\
+                        TextView;--文本控件\
+                        layout_width='fill';--文本宽度\
+                        layout_height='fill';--文本高度\
+                        gravity='top|left';--重力属性\
+                        textColor='#000000';--文字颜色\
+                        text='高级功能使用协议及条款';--显示的文字\
+                        textSize='17dp';--文字大小\
+                        layout_margin='8dp';--边距\
+                        id='tk3';\
+                      };\
+                      {\
+                        TextView;--文本控件\
+                        layout_width='fill';--文本宽度\
+                        layout_height='fill';--文本高度\
+                        gravity='left|center';--重力属性\
+                        textColor='#FF8C8C8C';--文字颜色\
+                        text='请先悉知此条内容再使用多文言Duo高级功能';--显示的文字\
+                        textSize='11dp';--文字大小\
+                        layout_marginLeft='8dp';--左距\
+                        layout_marginTop='3.7%h';--顶距\
+                        id='tk3';\
+\
+                      };\
+                      {\
+                        CardView;--卡片控件\
+                        layout_margin='8dp';--边距\
+                        layout_gravity='center|right';--重力\
+                        --左:left 右:right 中:center 顶:top 底:bottom\
+                        elevation='0dp';--阴影\
+                        layout_width='22dp';--宽度\
+                        layout_height='22dp';--高度\
+                        CardBackgroundColor='0';--颜色\
+                        radius='';--圆角\
+\
+                        {\
+                          ImageView;--图片控件\
+                          src='http://wp.wadg.pro/view.php/332b0971bbe6511ea8cab46f44584e6e.png';--图片路径\
+                          layout_width='fill';--图片宽度\
+                          layout_height='fill';--图片高度\
+                          scaleType='fitXY';--图片显示类型\
+                          id='tk3';\
+                        };\
+                      };\
+                      {\
+                        CardView;--卡片控件\
+                        layout_margin='';--边距\
+                        layout_gravity='center|bottom';--重力\
+                        --左:left 右:right 中:center 顶:top 底:bottom\
+                        elevation='0dp';--阴影\
+                        layout_width='fill';--宽度\
+                        layout_height='1dp';--高度\
+                        CardBackgroundColor='#f1f3f5';--颜色\
+                        radius='';--圆角\
+                        layout_marginLeft='8dp';--左距\
+                        layout_marginRight='8dp';--右距\
+                      };\
+\
+                    };\
+\
+\
+                    {\
+                      CardView;--卡片控件\
+                      layout_margin='';--边距\
+                      layout_gravity='';--重力\
+                      --左:left 右:right 中:center 顶:top 底:bottom\
+                      elevation='0dp';--阴影\
+                      layout_width='fill';--宽度\
+                      layout_height='8%h';--高度\
+                      CardBackgroundColor='#ffffffff';--颜色\
+                      layout_marginTop='16%h';--顶距\
+                      radius='';--圆角\
+                      id='tk2';\
+                      {\
+                        TextView;--文本控件\
+                        layout_width='fill';--文本宽度\
+                        layout_height='fill';--文本高度\
+                        gravity='top|left';--重力属性\
+                        textColor='#000000';--文字颜色\
+                        text='用户隐私条款及未成年人保护协议';--显示的文字\
+                        textSize='17dp';--文字大小\
+                        layout_margin='8dp';--边距\
+                        id='tk2';\
+                      };\
+                      {\
+                        TextView;--文本控件\
+                        layout_width='fill';--文本宽度\
+                        layout_height='fill';--文本高度\
+                        gravity='left|center';--重力属性\
+                        textColor='#FF8C8C8C';--文字颜色\
+                        text='如何让多文言Duo在规范内运行并让你获得最大的效率';--显示的文字\
+                        textSize='11dp';--文字大小\
+                        layout_marginLeft='8dp';--左距\
+                        layout_marginTop='3.7%h';--顶距\
+                        id='tk2';\
+\
+                      };\
+                      {\
+                        CardView;--卡片控件\
+                        layout_margin='8dp';--边距\
+                        layout_gravity='center|right';--重力\
+                        --左:left 右:right 中:center 顶:top 底:bottom\
+                        elevation='0dp';--阴影\
+                        layout_width='22dp';--宽度\
+                        layout_height='22dp';--高度\
+                        CardBackgroundColor='0';--颜色\
+                        radius='';--圆角\
+\
+                        {\
+                          ImageView;--图片控件\
+                          src='http://wp.wadg.pro/view.php/332b0971bbe6511ea8cab46f44584e6e.png';--图片路径\
+                          layout_width='fill';--图片宽度\
+                          layout_height='fill';--图片高度\
+                          scaleType='fitXY';--图片显示类型\
+                          id='tk2';\
+                        };\
+                      };\
+                      {\
+                        CardView;--卡片控件\
+                        layout_margin='';--边距\
+                        layout_gravity='center|bottom';--重力\
+                        --左:left 右:right 中:center 顶:top 底:bottom\
+                        elevation='0dp';--阴影\
+                        layout_width='fill';--宽度\
+                        layout_height='1dp';--高度\
+                        CardBackgroundColor='#f1f3f5';--颜色\
+                        radius='';--圆角\
+                        layout_marginLeft='8dp';--左距\
+                        layout_marginRight='8dp';--右距\
+                      };\
+\
+                    };\
+\
+                    {\
+                      CardView;--卡片控件\
+                      layout_margin='';--边距\
+                      layout_gravity='';--重力\
+                      --左:left 右:right 中:center 顶:top 底:bottom\
+                      elevation='0dp';--阴影\
+                      layout_width='fill';--宽度\
+                      layout_height='8%h';--高度\
+                      CardBackgroundColor='#ffffffff';--颜色\
+                      layout_marginTop='24%h';--顶距\
+                      radius='';--圆角\
+                      id='tk1';\
+                      {\
+                        TextView;--文本控件\
+                        layout_width='fill';--文本宽度\
+                        layout_height='fill';--文本高度\
+                        gravity='top|left';--重力属性\
+                        textColor='#000000';--文字颜色\
+                        text='DuoUI Design 规范库';--显示的文字\
+                        textSize='17dp';--文字大小\
+                        layout_margin='8dp';--边距\
+                        id='tk1';\
+                      };\
+                      {\
+                        TextView;--文本控件\
+                        layout_width='fill';--文本宽度\
+                        layout_height='fill';--文本高度\
+                        gravity='left|center';--重力属性\
+                        textColor='#FF8C8C8C';--文字颜色\
+                        text='多文言Duo及相关元素设计使用规范';--显示的文字\
+                        textSize='11dp';--文字大小\
+                        layout_marginLeft='8dp';--左距\
+                        layout_marginTop='3.7%h';--顶距\
+                        id='tk1';\
+\
+                      };\
+                      {\
+                        CardView;--卡片控件\
+                        layout_margin='8dp';--边距\
+                        layout_gravity='center|right';--重力\
+                        --左:left 右:right 中:center 顶:top 底:bottom\
+                        elevation='0dp';--阴影\
+                        layout_width='22dp';--宽度\
+                        layout_height='22dp';--高度\
+                        CardBackgroundColor='0';--颜色\
+                        radius='';--圆角\
+\
+                        {\
+                          ImageView;--图片控件\
+                          src='http://wp.wadg.pro/view.php/332b0971bbe6511ea8cab46f44584e6e.png';--图片路径\
+                          layout_width='fill';--图片宽度\
+                          layout_height='fill';--图片高度\
+                          scaleType='fitXY';--图片显示类型\
+                          id='tk1';\
+                        };\
+                      };\
+\
+\
+                    };\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+                  };\
+ {\
+                    CardView;--卡片控件\
+                    layout_margin='8dp';--边距\
+                    layout_marginLeft='';--左距\
+                    layout_gravity='center';--重力\
+                    --左:left 右:right 中:center 顶:top 底:bottom\
+                    elevation='0dp';--阴影\
+                    layout_width='65%w';--宽度\
+                    layout_height='27.66%w';--高度\
+                    CardBackgroundColor='0';--颜色\
+                    radius='8dp';--圆角\
+\
+                    {\
+                      ImageView;--图片控件\
+                      src=\"UILOGO_light.png\";--图片路径\
+                      layout_width='fill';--图片宽度\
+                      layout_height='fill';--图片高度\
+                      scaleType='fitXY';--图片显示类型\
+                      id='pdb';\
+\
+                    };\
+\
+                  };\
+\
+\
+                  {\
+                    CardView;--卡片控件\
+                    layout_margin='18dp';--边距\
+                    layout_marginTop='0dp';--顶距\
+                    --左:left 右:right 中:center 顶:top 底:bottom\
+\
+                    --左:left 右:right 中:center 顶:top 底:bottom\
+                    elevation='0dp';--阴影\
+                    layout_width='fill';--宽度\
+                    layout_height='fill';--高度\
+                    CardBackgroundColor='#f1f3f5';--颜色\
+                    radius='8dp';--圆角\
+\
+\
+                    {\
+                      TextView;--文本控件\
+                      layout_width='fill';--文本宽度\
+                      layout_height='fill';--文本高度\
+                      layout_marginTop='25%h';--顶距\
+                      gravity='center';--重力属性\
+                      --左:left 右:right 中:center 顶:top 底:bottom\
+                      textColor='#FF0040FF';--文字颜色\
+                      text='多文言Duo用户协议和关于多文言Duo与隐私的声明';--显示的文字\
+                      textSize='12dp';--文字大小\
+                      id='协议';\
+                    };\
+                    {\
+                      TextView;--文本控件\
+                      layout_width='fill';--文本宽度\
+                      layout_height='fill';--文本高度\
+                      layout_marginTop='17%h';--顶距\
+                      gravity='center';--重力属性\
+                      textColor='#FF656565';--文字颜色\
+                      text='Copyright © 2021-2022 XiaoBaiBZS.';--显示的文字\
+                      textSize='12dp';--文字大小\
+                      id='协议';\
+                    };\
+                   \
+                  };\
+\
+\
+                \
+\
+                };\
+              };\
+            };\
+\
+\
+          };\
+        };\
+      };\
+\
+    };--线程布局框架\
+\
+  };--纵向滚动框架\
+\
+};--总框架\
+drawerLayout.getParent().addView(loadlayout(hhhh))\
+------------------布局事件------------\
+\
+关闭.onClick=function()--点击事件\
+  -- ars.setVisibility(View.GONE)\
+  退出页面()\
+end;\
+-----------------------------------\
+\
+------------------------------------\
+ABC.onClick=function()--点击事件\
+  进入子页面(\"100\")\
+end;\
+----------------------------------\
+协议.onClick=function()\
+  进入子页面(\"11\")--点击事件\
+end;\
+------------------------------------\
+a1.onClick=function()--点击事件\
+  a1.setCardBackgroundColor(0xFFE7E8EA)\
+  task(80,function()\
+    a1.setCardBackgroundColor(0xffffffff)\
+  end)\
+  进入子页面(\"100\")\
+end;\
+a3.onClick=function()--点击事件\
+  a3.setCardBackgroundColor(0xFFE7E8EA)\
+  task(80,function()\
+    a3.setCardBackgroundColor(0xffffffff)\
+  end)\
+  print\"即将跳转至酷安Coolapk，请确保您的设备已经安装了酷安Coolapk应用\"\
+  intent=Intent(\"android.intent.action.VIEW\")\
+  intent.setPackage(\"com.coolapk.market\")\
+  intent.setData(Uri.parse(\"coolmarket://u/3543373\"))\
+  intent.addFlags(intent.FLAG_ACTIVITY_NEW_TASK)\
+  this.startActivity(intent)\
+end;\
+a4.onClick=function()--点击事件\
+  a4.setCardBackgroundColor(0xFFE7E8EA)\
+  task(80,function()\
+    a4.setCardBackgroundColor(0xffffffff)\
+  end)\
+  print\"隐私保护，请联系@小白XiaoBai BZS\"\
+end;\
+a6.onClick=function()--点击事件\
+  a6.setCardBackgroundColor(0xFFE7E8EA)\
+  task(80,function()\
+    a6.setCardBackgroundColor(0xffffffff)\
+  end)\
+  print\"即将跳转至酷安Coolapk，请确保您的设备已经安装了酷安Coolapk应用\"\
+  intent=Intent(\"android.intent.action.VIEW\")\
+  intent.setPackage(\"com.coolapk.market\")\
+  intent.setData(Uri.parse(\"coolmarket://u/2890404\"))\
+  intent.addFlags(intent.FLAG_ACTIVITY_NEW_TASK)\
+  this.startActivity(intent)\
+end;\
+a5.onClick=function()--点击事件\
+  a5.setCardBackgroundColor(0xFFE7E8EA)\
+  task(80,function()\
+    a5.setCardBackgroundColor(0xffffffff)\
+  end)\
+  print\"即将跳转至酷安Coolapk，请确保您的设备已经安装了酷安Coolapk应用\"\
+  intent=Intent(\"android.intent.action.VIEW\")\
+  intent.setPackage(\"com.coolapk.market\")\
+  intent.setData(Uri.parse(\"coolmarket://u/675594\"))\
+  intent.addFlags(intent.FLAG_ACTIVITY_NEW_TASK)\
+  this.startActivity(intent)\
+end;\
+a7.onClick=function()--点击事件\
+  a7.setCardBackgroundColor(0xFFE7E8EA)\
+  task(80,function()\
+    a7.setCardBackgroundColor(0xffffffff)\
+  end)\
+  print\"即将跳转至酷安Coolapk，请确保您的设备已经安装了酷安Coolapk应用\"\
+  intent=Intent(\"android.intent.action.VIEW\")\
+  intent.setPackage(\"com.coolapk.market\")\
+  intent.setData(Uri.parse(\"coolmarket://u/1876420\"))\
+  intent.addFlags(intent.FLAG_ACTIVITY_NEW_TASK)\
+  this.startActivity(intent)\
+end;\
+a8.onClick=function()--点击事件\
+  a8.setCardBackgroundColor(0xFFE7E8EA)\
+  task(80,function()\
+    a8.setCardBackgroundColor(0xffffffff)\
+  end)\
+  print\"即将跳转至酷安Coolapk，请确保您的设备已经安装了酷安Coolapk应用\"\
+  intent=Intent(\"android.intent.action.VIEW\")\
+  intent.setPackage(\"com.coolapk.market\")\
+  intent.setData(Uri.parse(\"coolmarket://u/3723451\"))\
+  intent.addFlags(intent.FLAG_ACTIVITY_NEW_TASK)\
+  this.startActivity(intent)\
+end;\
+a9.onClick=function()--点击事件\
+  a9.setCardBackgroundColor(0xFFE7E8EA)\
+  task(80,function()\
+    a9.setCardBackgroundColor(0xffffffff)\
+  end)\
+  import \"android.content.Intent\"\
+  import \"android.net.Uri\"\
+  url=\"https://yunchu.cxoip.com/\"\
+  viewIntent = Intent(\"android.intent.action.VIEW\",Uri.parse(url))\
+  activity.startActivity(viewIntent)\
+end;\
+a10.onClick=function()--点击事件\
+  a10.setCardBackgroundColor(0xFFE7E8EA)\
+  task(80,function()\
+    a10.setCardBackgroundColor(0xffffffff)\
+  end)\
+  import \"android.content.Intent\"\
+  import \"android.net.Uri\"\
+  url=\"https://www.lanzou.com/u\"\
+  viewIntent = Intent(\"android.intent.action.VIEW\",Uri.parse(url))\
+  activity.startActivity(viewIntent)\
+end;\
+a11.onClick=function()--点击事件\
+  a11.setCardBackgroundColor(0xFFE7E8EA)\
+  task(80,function()\
+    a11.setCardBackgroundColor(0xffffffff)\
+  end)\
+  import \"android.content.Intent\"\
+  import \"android.net.Uri\"\
+  url=\"https://www.kdocs.cn/welcome\"\
+  viewIntent = Intent(\"android.intent.action.VIEW\",Uri.parse(url))\
+  activity.startActivity(viewIntent)\
+end;\
+a12.onClick=function()--点击事件\
+  a12.setCardBackgroundColor(0xFFE7E8EA)\
+  task(80,function()\
+    a12.setCardBackgroundColor(0xffffffff)\
+  end)\
+  import \"android.content.Intent\"\
+  import \"android.net.Uri\"\
+  url=\"https://txc.qq.com/mobile/\"\
+  viewIntent = Intent(\"android.intent.action.VIEW\",Uri.parse(url))\
+  activity.startActivity(viewIntent)\
+end;\
+aa13.onClick=function()--点击事件\
+  aa13.setCardBackgroundColor(0xFFE7E8EA)\
+  task(80,function()\
+    aa13.setCardBackgroundColor(0xffffffff)\
+  end)\
+  import \"android.content.Intent\"\
+  import \"android.net.Uri\"\
+  url=\"https://www.weiyun.com/\"\
+  viewIntent = Intent(\"android.intent.action.VIEW\",Uri.parse(url))\
+  activity.startActivity(viewIntent)\
+end;\
+a14.onClick=function()--点击事件\
+  a14.setCardBackgroundColor(0xFFE7E8EA)\
+  task(80,function()\
+    a14.setCardBackgroundColor(0xffffffff)\
+  end)\
+  import \"android.content.Intent\"\
+  import \"android.net.Uri\"\
+  url=\"https://docs.qq.com/\"\
+  viewIntent = Intent(\"android.intent.action.VIEW\",Uri.parse(url))\
+  activity.startActivity(viewIntent)\
+end;\
+\
+a15.onClick=function()--点击事件\
+  a15.setCardBackgroundColor(0xFFE7E8EA)\
+  task(80,function()\
+    a15.setCardBackgroundColor(0xffffffff)\
+  end)\
+  import \"android.content.Intent\"\
+  import \"android.net.Uri\"\
+  url=\"https://wj.qq.com/mobile\"\
+  viewIntent = Intent(\"android.intent.action.VIEW\",Uri.parse(url))\
+  activity.startActivity(viewIntent)\
+end;\
+\
+a16.onClick=function()--点击事件\
+  a16.setCardBackgroundColor(0xFFE7E8EA)\
+  task(80,function()\
+    a16.setCardBackgroundColor(0xffffffff)\
+  end)\
+  import \"android.content.Intent\"\
+  import \"android.net.Uri\"\
+  url=\"https://www.jinrishici.com/\"\
+  viewIntent = Intent(\"android.intent.action.VIEW\",Uri.parse(url))\
+  activity.startActivity(viewIntent)\
+end;\
+a17.onClick=function()--点击事件\
+  a17.setCardBackgroundColor(0xFFE7E8EA)\
+  task(80,function()\
+    a17.setCardBackgroundColor(0xffffffff)\
+  end)\
+  import \"android.content.Intent\"\
+  import \"android.net.Uri\"\
+  url=\"https://js.design/\"\
+  viewIntent = Intent(\"android.intent.action.VIEW\",Uri.parse(url))\
+  activity.startActivity(viewIntent)\
+end;\
+xxj2.onClick=function()--点击事件\
+  xxj2.setCardBackgroundColor(0xFFE7E8EA)\
+  task(80,function()\
+    xxj2.setCardBackgroundColor(0xffffffff)\
+  end)\
+  import \"android.content.Intent\"\
+  import \"android.net.Uri\"\
+  url=\"https://www.coolapk.com/\"\
+  viewIntent = Intent(\"android.intent.action.VIEW\",Uri.parse(url))\
+  activity.startActivity(viewIntent)\
+end;\
+xj1.onClick=function()--点击事件\
+  xj1.setCardBackgroundColor(0xFFE7E8EA)\
+  task(80,function()\
+    xj1.setCardBackgroundColor(0xffffffff)\
+    gygd=\
+    --主框架\
+\
+    {\
+      LinearLayout;--线性布局\
+      layout_width='match_parent';--布局宽度\
+      layout_height='match_parent';--布局高度\
+      background='#FFFFFFFF';--布局背景颜色(或者图片路径)\
+      id='kns';\
+      {\
+        LinearLayout,--线性布局\
+        orientation='vertical',--方向\
+        layout_width='fill',--宽度\
+        layout_height='wrap',--高度\
+        background='#f1f3f5',--背景颜色或图片路径\
+        {\
+          CardView;--卡片控件\
+          layout_margin='8dp';--边距\
+          layout_gravity='center';--重力\
+          --左:left 右:right 中:center 顶:top 底:bottom\
+          elevation='0dp';--阴影\
+          layout_width='fill';--宽度\
+          layout_height=height;--高度\
+          CardBackgroundColor='#f1f3f5';--颜色\
+          radius='';--圆角\
+        };\
+        {\
+          CardView;--卡片控件\
+          layout_margin='15dp';--边距\
+          layout_gravity='center|top';--重力\
+          --左:left 右:right 中:center 顶:top 底:bottom\
+          elevation='0dp';--阴影\
+          layout_width='fill';--宽度\
+          layout_height='5%h';--高度\
+          CardBackgroundColor='#f1f3f5';--颜色\
+          radius='8dp';--圆角\
+          {\
+            TextView;--文本控件\
+            layout_width='fill';--文本宽度\
+            layout_height='fill';--文本高度\
+            gravity='left|center';--重力属性\
+            --左:left 右:right 中:center 顶:top 底:bottom\
+            textColor='#FF181818';--文字颜色\
+            text=\"更多支持\";--显示的文字\
+            textSize='20dp';--文字大小\
+          };\
+          {\
+            ImageView;--图片控件\
+            src='gb.png';--图片路径\
+            layout_width='35dp';--图片宽度\
+            layout_height='35dp';--图片高度\
+            scaleType='fitXY';--图片显示类型\
+            layout_gravity='center|right';--卡片重力\
+            --左:left 右:right 中:center 顶:top 底:bottom\
+            ColorFilter='#FF181818';--图片着色\
+            id='关闭';\
+\
+          };\
+\
+\
+        };\
+\
+\
+        --纵向滚动框架\
+        {\
+          ScrollView,\
+          layout_width=\"match_parent\";\
+          layout_height=\"match_parent\";\
+          VerticalScrollBarEnabled=false;\
+\
+          {\
+            LinearLayout;--线性布局\
+            Orientation='horizontal';--布局方向\
+            layout_width='match_parent';--布局宽度\
+            layout_height='match_parent';--布局高度\
+            background='#f1f3f5';--布局背景颜色\
+            id='kns';\
+\
+\
+            -- -----------左边竖布局开始--------------\
+            --左线程框架\
+\
+            {\
+              LinearLayout;\
+              orientation=\"vertical\";\
+              layout_width=\"fill\";\
+              layout_height=\"match_parent\";\
+              layout_marginLeft=\"\";\
+              {\
+                CardView;--卡片控件\
+                layout_margin='18dp';--边距\
+                layout_gravity='center';--重力\
+                --左:left 右:right 中:center 顶:top 底:bottom\
+                elevation='0dp';--阴影\
+                layout_width='fill';--宽度\
+                layout_height='100%h';--高度\
+                CardBackgroundColor='#ffffffff';--颜色\
+                radius='18dp';--圆角\
+                {\
+                  TextView;--文本控件\
+                  layout_width='fill';--文本宽度\
+                  layout_height='fill';--文本高度\
+                  gravity='top|left';--重力属性\
+                  textColor='#FF1D1D1D';--文字颜色\
+                  text='在多文言Duo APP制作过程中，以下应用或提供商也给予了一定帮助，向其表示感谢！\\n\\n\\n华为鸿蒙 HUAWEI HarmonyOS \\n--DuoUI Design部分设计规范\\n\\n代码手册by：Robin\\n--andlua代码帮助\\n\\nWindows Subsystem for Android™\\n--在 Windows11 设备上运行多文言Duo\\n\\nMicrosoft Word\\n--部分文件编辑操作\\n\\nWPS Office\\n--部分文件编辑操作\\n\\nMicrosoft Edge\\n--部分文件预览操作\\n\\nMicrosoft Powerpoint\\n--部分图形编辑操作\\n\\n阿里云盘Adrive\\n--部分文件云端存储及分享操作\\n\\n文件直链（外链网盘）\\n--图床，文件下载\\n\\nYueStore团队\\n--软件建议软件反馈等\\n\\n（其他精品应用不一一进行列举）';--显示的文字\
+                  textSize='17dp';--文字大小\
+                  layout_margin='7dp';--边距\
+                };\
+              };\
+\
+            };\
+          };\
+        };\
+      };\
+    };\
+\
+\
+    drawerLayout.getParent().addView(loadlayout(gygd))\
+    关闭.onClick=function()--点击事件\
+      kns.setVisibility(View.GONE)\
+    end;\
+\
+  end)\
+\
+end;\
+\
+\
+a21.onClick=function()--点击事件\
+\
+  a21.setCardBackgroundColor(0xFFE7E8EA)\
+  task(80,function()\
+    a21.setCardBackgroundColor(0xffffffff)\
+  end)\
+\
+\
+  发送邮件(\"1298589907@qq.com\")\
+end;\
+a22.onClick=function()--点击事件\
+\
+  a22.setCardBackgroundColor(0xFFE7E8EA)\
+  task(80,function()\
+    a22.setCardBackgroundColor(0xffffffff)\
+  end)\
+\
+  import \"android.content.Intent\"\
+\
+  import \"android.net.Uri\"\
+\
+  url=\"https://qm.qq.com/cgi-bin/qm/qr?k=iawJb08p2aB3MmuxaTLQMUcx3dom7I8U&noverify=0\"\
+\
+  viewIntent = Intent(\"android.intent.action.VIEW\",Uri.parse(url))\
+\
+  activity.startActivity(viewIntent)\
+end;\
+a23.onClick=function()--点击事件\
+\
+  a23.setCardBackgroundColor(0xFFE7E8EA)\
+  task(80,function()\
+    a23.setCardBackgroundColor(0xffffffff)\
+  end)\
+\
+\
+  require \"import\"\
+  import \"android.app.*\"\
+  import \"android.os.*\"\
+  import \"android.widget.*\"\
+  import \"android.view.*\"\
+  import \"android.content.Context\"\
+  import \"android.content.Intent\"\
+  import \"android.app.PendingIntent\"\
+  import \"android.app.Notification\"\
+  for account in io.lines(\"/storage/emulated/0/duo/files/Account.txt\") do\
+    local content=account\
+    local name=content:match(\"【name】(.-)【name】\")\
+    local avatar=content:match(\"【avatar】(.-)【avatar】\")\
+    local openid=content:match(\"【openid】(.-)【openid】\")\
+    local tencenttxc = \"https://support.qq.com/products/318417?nickname=\"..name..\"&avatar=\"..avatar..\"&openid=\"..openid\
+\
+    进入子页面(\"530\",{链接=tencenttxc})\
+\
+\
+\
+  end\
+\
+end;\
+\
+a24.onClick=function()--点击事件\
+\
+  a24.setCardBackgroundColor(0xFFE7E8EA)\
+  task(80,function()\
+    a24.setCardBackgroundColor(0xffffffff)\
+  end)\
+\
+  进入子页面\"55\"\
+end;\
+----------------------------------------\
+xj3.onClick=function()--点击事件\
+\
+  xj3.setCardBackgroundColor(0xFFE7E8EA)\
+  task(80,function()\
+    xj3.setCardBackgroundColor(0xffffffff)\
+  end)\
+  print\"即将跳转至酷安Coolapk，请确保您的设备已经安装了酷安Coolapk应用\"\
+  intent=Intent(\"android.intent.action.VIEW\")\
+  intent.setPackage(\"com.coolapk.market\")\
+  intent.setData(Uri.parse(\"coolmarket://u/3543373\"))\
+  intent.addFlags(intent.FLAG_ACTIVITY_NEW_TASK)\
+  this.startActivity(intent)\
+end;\
+xj4.onClick=function()--点击事件\
+\
+  xj4.setCardBackgroundColor(0xFFE7E8EA)\
+  task(80,function()\
+    xj4.setCardBackgroundColor(0xffffffff)\
+  end)\
+  import \"android.net.Uri\"\
+  import \"android.content.Intent\"\
+  --加群\
+  url=\"mqqapi://card/show_pslcard?src_type=internal&version=1&uin=850350029&card_type=group&source=qrcode\"\
+  activity.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))\
+\
+end;\
+--------------------------------------------\
+a25.onClick=function()--点击事件\
+  a25.setCardBackgroundColor(0xFFE7E8EA)\
+  task(80,function()\
+    a25.setCardBackgroundColor(0xffffffff)\
+  end)\
+  require \"import\"\
+  import \"android.app.*\"\
+  import \"android.os.*\"\
+  import \"android.widget.*\"\
+  import \"android.view.*\"\
+  import \"android.content.Context\"\
+  import \"android.content.Intent\"\
+  import \"android.app.PendingIntent\"\
+  import \"android.app.Notification\"\
+  urla=\"https://wds.ecsxs.com/218754.html\"--换自己的远程链接\
+  Http.get(urla,nil,nil,nil,function(code,content)\
+    local woord=content:match(\"【woord】(.-)【woord】\")\
+\
+    local lj=content:match(\"【lj】(.-)【lj】\")\
+    local bbh=content:match(\"【bbh】(.-)【bbh】\")\
+\
+    分享文本('给你分享一个好应用，多文言Duo，高中语文古诗文学习集成，建议您复制链接至浏览器打开。'..lj..'（版本：'..bbh..'）\\n\\n更新内容：\\n'..woord)\
+    print\"感谢您的分享！\"\
+  end)\
+end;\
+tk2.onClick=function()--点击事件\
+  tk2.setCardBackgroundColor(0xFFE7E8EA)\
+  task(80,function()\
+    tk2.setCardBackgroundColor(0xffffffff)\
+  end)\
+  进入子页面\"11\"\
+end;\
+tk3.onClick=function()--点击事件\
+  tk3.setCardBackgroundColor(0xFFE7E8EA)\
+  task(80,function()\
+    tk3.setCardBackgroundColor(0xffffffff)\
+  end)\
+  进入子页面\"123\"\
+end;\
+tk1.onClick=function()--点击事件\
+  tk1.setCardBackgroundColor(0xFFE7E8EA)\
+  task(80,function()\
+    tk1.setCardBackgroundColor(0xffffffff)\
+  end)\
+  进入子页面\"150\"\
+end;\
+tk4.onClick=function()--点击事件\
+  tk4.setCardBackgroundColor(0xFFE7E8EA)\
+  task(80,function()\
+    tk4.setCardBackgroundColor(0xffffffff)\
+  end)\
+  进入子页面\"90\"\
+end;\
+" ;
+      } ;
+  ["toolbar"]	= {
+      ["icon_btns"]	= {
+          } ;
+      ["输入栏模式"]	= true ;
+      ["启用搜索功能"]	= false ;
+      ["menus"]	= {
+          } ;
+      ["搜索URL"]	= "" ;
+      ["搜索框提示"]	= "" ;
+      } ;
+  ["sidebar"]	= {
+      ["启用顶部图片"]	= false ;
+      ["items"]	= {
+          } ;
+      ["启用"]	= false ;
+      } ;
+  } ;
