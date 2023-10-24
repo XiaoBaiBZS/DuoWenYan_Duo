@@ -75,7 +75,8 @@ function login(){
   $.ajax({
     type : "post",
     url : "https://wd.cn.ecsxs.com/api/v1/user/login/",
-    data : {username:"BZS",password:"050822",email:"1298589907@qq.com"},
+    data : {username:"BZS",password:"######",email:"1298589907@qq.com"},
+	  //上述passsword处填写云储互联的账户处于开源目的开发者将此处开发者使用的账户及密码隐藏
     dataType : "json",
     success:function(res){
       if(res.state == 200){
